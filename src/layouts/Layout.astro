@@ -26,13 +26,17 @@ const { lang, title, description } = Astro.props;
   </head>
   <body>
     <slot />
+    <button id="to-top" class="to-top" type="button" aria-label="Nach oben">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 5 L12 19 M6 11 L12 5 L18 11" fill="none" stroke="currentColor" stroke-width="2" /></svg>
+    </button>
     <script>
       import Lenis from 'lenis';
       import 'lenis/dist/lenis.css';
 
+      let lenis;
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!reduce) {
-        const lenis = new Lenis({
+        lenis = new Lenis({
           duration: 1.05,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         });
@@ -54,6 +58,18 @@ const { lang, title, description } = Astro.props;
             lenis.scrollTo(el, { offset: -80 });
             history.pushState(null, '', hash);
           }
+        });
+      }
+
+      // Scroll-to-top button
+      const toTop = document.getElementById('to-top');
+      if (toTop) {
+        const upd = () => toTop.classList.toggle('show', window.scrollY > 480);
+        window.addEventListener('scroll', upd, { passive: true });
+        if (lenis) lenis.on('scroll', upd);
+        upd();
+        toTop.addEventListener('click', () => {
+          if (lenis) lenis.scrollTo(0); else window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       }
     </script>

@@ -213,22 +213,25 @@ col.c-use{width:34%}
 
 /* ---------- Footer ---------- */
 footer.site{background:var(--ink);color:#CFCFCF;border-top:1px solid var(--ink);margin-top:auto}
-.foot-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:0}
-.foot-brand{grid-column:1 / span 4;padding:48px var(--gut) 40px 0}
-.foot-brand svg{height:24px;width:auto;margin-bottom:18px}
+.foot-grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:32px;row-gap:0}
+.foot-brand{grid-column:span 3;padding:48px 0 40px}
+.foot-mark{display:flex;align-items:center;gap:13px;margin-bottom:16px}
+.foot-brand svg{height:24px;width:auto;display:block}
 .foot-brand svg path{fill:#fff}
-.foot-brand p{color:#8f8f8f;font-size:13px;max-width:32ch}
-.foot-col{grid-column:span 2;padding:48px 0 40px}
-.foot-col.wide{grid-column:span 4}
-.foot-col h5{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#7a7a7a;margin-bottom:16px}
-.foot-col li{padding:5px 0;font-size:13.5px;color:#CFCFCF}
+.foot-wordmark{font-weight:700;font-size:19px;letter-spacing:.01em;color:#fff;line-height:1}
+.foot-brand p{color:#8f8f8f;font-size:13px;max-width:34ch;line-height:1.55}
+.foot-col{grid-column:span 3;padding:48px 0 40px}
+.foot-col.wide{grid-column:span 3}
+.foot-col h5{font-size:13px;font-weight:600;letter-spacing:0;color:#9a9a9a;margin-bottom:14px}
+.foot-col li{padding:2px 0;font-size:14px;line-height:1.5;color:#CFCFCF}
 .foot-col li a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
 .foot-bar{border-top:1px solid #333;padding:18px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:#7a7a7a}
 .foot-bar a:hover{color:#fff}
 @media(max-width:820px){
-  .foot-brand{grid-column:1 / -1;padding-right:0;padding-bottom:24px}
-  .foot-col{grid-column:span 6;padding-top:28px}
-  .foot-col.wide{grid-column:span 12}
+  .foot-grid{column-gap:28px}
+  .foot-brand{grid-column:1 / -1;padding:40px 0 24px}
+  .foot-col{grid-column:span 6;padding:16px 0 0}
+  .foot-col.wide{grid-column:1 / -1;padding-top:4px}
 }
 
 /* ---------- Mobile nav ---------- */
@@ -268,8 +271,9 @@ footer.site{background:var(--ink);color:#CFCFCF;border-top:1px solid var(--ink);
 @media(max-width:520px){.logos{grid-template-columns:repeat(2,1fr)}.logo-ph:nth-child(3n){border-right:1px solid var(--line)}.logo-ph:nth-child(2n){border-right:0}}
 
 /* Map (interface chrome → monochrome) */
-.mapwrap{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);line-height:0}
-.mapwrap iframe{width:100%;height:min(52vh,480px);border:0;display:block;filter:grayscale(1) contrast(1.05)}
+.mapwrap{position:relative;overflow:hidden;height:min(52vh,480px);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);line-height:0}
+.mapwrap iframe{position:absolute;left:0;top:0;width:100%;height:calc(100% + 42px);border:0;display:block;filter:grayscale(1) contrast(1.05)}
+.map-credit{position:absolute;right:8px;bottom:6px;z-index:2;font-size:10px;line-height:1;letter-spacing:.02em;color:#8a8a8a;background:rgba(255,255,255,.72);padding:2px 6px}
 
 /* Sub-page title band */
 .page-head{border-bottom:1px solid var(--ink);padding:clamp(40px,7vw,86px) 0 clamp(26px,4vw,44px)}
@@ -321,3 +325,13 @@ footer.site{background:var(--ink);color:#CFCFCF;border-top:1px solid var(--ink);
 .kf-side .label{margin-bottom:14px}
 .kf-side address{font-style:normal;color:var(--ink);font-size:15px;line-height:1.7;margin-bottom:24px}
 @media(max-width:820px){.kf-form,.kf-side{grid-column:1 / -1}.kf-form{border-right:0;border-bottom:1px solid var(--ink)}.form-two{grid-template-columns:1fr}}
+
+/* Contact map inside the right column */
+.kf-map{position:relative;overflow:hidden;margin-top:28px;height:clamp(240px,34vh,340px);border:1px solid var(--line);line-height:0}
+.kf-map iframe{position:absolute;left:0;top:0;width:100%;height:calc(100% + 42px);border:0;display:block;filter:grayscale(1) contrast(1.05)}
+
+/* Scroll-to-top button */
+.to-top{position:fixed;right:clamp(16px,3vw,32px);bottom:clamp(16px,3vw,32px);z-index:60;width:46px;height:46px;display:flex;align-items:center;justify-content:center;background:var(--ink);color:#fff;border:1px solid var(--ink);cursor:pointer;padding:0;opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .25s,transform .25s,background .2s}
+.to-top.show{opacity:1;transform:none;pointer-events:auto}
+.to-top:hover{background:#242424}
+.to-top svg{display:block}

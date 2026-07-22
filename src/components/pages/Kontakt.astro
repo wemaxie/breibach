@@ -37,23 +37,15 @@ const p = t.pages.kontakt;
       <dl class="cdl">
         {t.contact.rows.map((r: any) => (<Fragment><dt>{r.k}</dt><dd>{r.v}</dd></Fragment>))}
       </dl>
+      <div class="kf-map">
+        <iframe
+          title={p.mapHeading}
+          src="https://www.openstreetmap.org/export/embed.html?bbox=7.30%2C50.36%2C7.42%2C50.42&layer=mapnik&marker=50.3906%2C7.3606"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <span class="map-credit">© OpenStreetMap</span>
+      </div>
     </div>
   </div>
 </div>
-
-<section id="karte">
-  <div class="wrap sec" style="padding-bottom:0">
-    <div class="sec-head">
-      <h2>{p.mapHeading}</h2>
-      <div class="aside">{t.map.aside}</div>
-    </div>
-  </div>
-  <div class="mapwrap">
-    <iframe
-      title={p.mapHeading}
-      src="https://www.openstreetmap.org/export/embed.html?bbox=7.30%2C50.36%2C7.42%2C50.42&layer=mapnik&marker=50.3906%2C7.3606"
-      loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </div>
-</section>
 
 <SiteFooter t={t} locale={locale} />

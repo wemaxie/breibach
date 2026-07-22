@@ -15,7 +15,10 @@ const pageHref = (s: string) => (s ? `${base}/${s}` : home);
 <footer class="site">
   <div class="wrap foot-grid">
     <div class="foot-brand">
-      <Logo />
+      <div class="foot-mark">
+        <Logo />
+        <span class="foot-wordmark">Breitbach.</span>
+      </div>
       <p>{t.footer.blurb}</p>
     </div>
     {t.footer.cols.map((c: any) => (
