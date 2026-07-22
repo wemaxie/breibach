@@ -1,0 +1,196 @@
+---
+// Homepage body (overview). Uses the shared SiteHeader/SiteFooter.
+import SiteHeader from './SiteHeader.astro';
+import SiteFooter from './SiteFooter.astro';
+
+interface Props {
+  t: any;
+  locale: string;
+}
+const { t, locale } = Astro.props;
+const base = locale === 'de' ? '' : `/${locale}`;
+const pageHref = (s: string) => (s ? `${base}/${s}` : (base === '' ? '/' : `${base}/`));
+---
+
+<SiteHeader t={t} locale={locale} slug="" />
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-media">
+    <video class="hero-video" src="/media/hero.mp4" autoplay muted loop playsinline preload="auto"></video>
+  </div>
+  <div class="hero-meta">
+    {t.heroMeta.map((m: string) => <span>{m}</span>)}
+  </div>
+  <div class="hero-block">
+    <h1 class="reveal">{t.hero.title}</h1>
+    <p class="reveal d1">{t.hero.sub}</p>
+  </div>
+</section>
+
+<!-- ============ NATURE / SLOGAN ============ -->
+<div class="wrap">
+  <section class="nature">
+    <div class="nature-media" aria-hidden="true">
+      <video class="tree-mask" src="/media/tree-canopy.mp4" width="1280" height="720" autoplay muted loop playsinline preload="auto"></video>
+    </div>
+    <div class="nature-text">
+      <h2>{t.slogan.pre}<em>{t.slogan.green}</em>{t.slogan.post}</h2>
+      <p>{t.slogan.body}</p>
+    </div>
+  </section>
+</div>
+<hr class="rule" />
+
+<!-- ============ PRODUKTE (overview) ============ -->
+<section id="produkte">
+  <div class="wrap sec">
+    <div class="sec-head">
+      <h2>{t.products.heading}</h2>
+      <div class="aside">{t.products.aside}</div>
+    </div>
+    <div class="tablewrap">
+      <table class="matrix">
+        <colgroup><col class="c-prod" /><col class="c-kor" /><col class="c-norm" /><col class="c-use" /></colgroup>
+        <thead>
+          <tr>{t.products.cols.map((c: string) => <th>{c}</th>)}</tr>
+        </thead>
+        <tbody>
+          {t.products.rows.map((r: any) => (
+            <tr>
+              <td class="prod">{r.name}{r.note && <small>{r.note}</small>}</td>
+              <td class="kor" data-label={t.products.cols[1]}>{r.kor}</td>
+              <td class="norm" data-label={t.products.cols[2]}>{r.norm}</td>
+              <td data-label={t.products.cols[3]}>{r.use}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="more"><a href={pageHref('produkte')}>{t.products.more} →</a></p>
+  </div>
+</section>
+
+<!-- ============ BAND (photo placeholder) ============ -->
+<figure class="band">
+  <img src="/media/basalt-8-11.webp" alt={t.band.caption} loading="lazy" decoding="async">
+  <figcaption>{t.band.caption}</figcaption>
+</figure>
+
+<!-- ============ ANWENDUNGEN ============ -->
+<section id="anwendungen">
+  <div class="wrap sec">
+    <div class="sec-head">
+      <h2>{t.applications.heading}</h2>
+      <div class="aside">{t.applications.aside}</div>
+    </div>
+    <div class="apps">
+      {t.applications.items.map((a: any) => (
+        <div class="app">
+          <h3>{a.title}</h3>
+          <p>{a.body}</p>
+          <div class="rocks">{a.rocks}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<hr class="rule" />
+
+<!-- ============ TECHNIK ============ -->
+<section id="technik">
+  <div class="wrap sec">
+    <div class="sec-head">
+      <h2>{t.technik.heading}</h2>
+      <div class="aside">{t.technik.aside}</div>
+    </div>
+    <div class="spec">
+      {t.technik.columns.map((col: any) => (
+        <div class="spec-col">
+          <h4>{col.head}</h4>
+          <ul>
+            {col.rows.map((r: any) => <li><span>{r.k}</span>{r.v && <b>{r.v}</b>}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<hr class="rule" />
+
+<!-- ============ UNTERNEHMEN (overview) ============ -->
+<section id="unternehmen">
+  <div class="wrap sec">
+    <div class="sec-head">
+      <h2>{t.company.heading}</h2>
+      <div class="aside">{t.company.aside}</div>
+    </div>
+    <div class="company" style="margin-top:44px">
+      <div class="txt">
+        {t.company.paras.map((p: string) => <p>{p}</p>)}
+        <p class="more"><a href={pageHref('unternehmen')}>{t.company.more} →</a></p>
+      </div>
+      <div class="facts">
+        {t.company.facts.map((f: any) => (
+          <div class="fact"><div class="v">{f.v}</div><div class="l">{f.l}</div></div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="rule" />
+
+<!-- ============ PARTNER ============ -->
+<section id="partner">
+  <div class="wrap sec">
+    <div class="sec-head">
+      <h2>{t.partners.heading}</h2>
+      <div class="aside">{t.partners.aside}</div>
+    </div>
+    <div class="logos">
+      {t.partners.slots.map((label: string) => (
+        <div class="logo-ph"><span>{label}</span></div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAP ============ -->
+<section id="karte">
+  <div class="wrap sec" style="padding-bottom:0">
+    <div class="sec-head">
+      <h2>{t.map.heading}</h2>
+      <div class="aside">{t.map.aside}</div>
+    </div>
+  </div>
+  <div class="mapwrap">
+    <iframe
+      title={t.map.heading}
+      src="https://www.openstreetmap.org/export/embed.html?bbox=7.30%2C50.36%2C7.42%2C50.42&layer=mapnik&marker=50.3906%2C7.3606"
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</section>
+
+<!-- ============ KONTAKT (overview) ============ -->
+<section id="kontakt">
+  <div class="wrap sec">
+    <div class="contact">
+      <div class="c-main">
+        <h3>{t.contact.heading}</h3>
+        <p class="lead">{t.contact.lead}</p>
+        <a class="btn" href={pageHref('kontakt')}><span>{t.contact.cta}</span><span class="arw">→</span></a>
+        <dl class="cdl">
+          {t.contact.rows.map((r: any) => (<Fragment><dt>{r.k}</dt><dd>{r.v}</dd></Fragment>))}
+        </dl>
+      </div>
+      <div class="c-side">
+        <div class="label">{t.contact.standortLabel}</div>
+        <address>
+          {t.contact.address.map((line: string, i: number) => (<Fragment>{i > 0 && <br />}{line}</Fragment>))}
+        </address>
+      </div>
+    </div>
+  </div>
+</section>
+
+<SiteFooter t={t} locale={locale} />

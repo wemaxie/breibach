@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Home from '../../components/Home.astro';
+import { content, meta, lang } from '../../i18n/en';
+---
+
+<Layout lang={lang} title={meta.title} description={meta.description}>
+  <Home t={content} locale="en" />
+</Layout>

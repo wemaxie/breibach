@@ -1,0 +1,46 @@
+---
+import SiteHeader from '../SiteHeader.astro';
+import SiteFooter from '../SiteFooter.astro';
+interface Props { t: any; locale: string; }
+const { t, locale } = Astro.props;
+const p = t.pages.produkte;
+
+// Category photos, in the same order as pages.produkte.categories (locale-independent).
+const catImages = [
+  '/media/products/stone_powder.webp',         // Steinmehl / Gesteinsmehl
+  '/media/products/special_stone_powder.webp', // Spezialsteinmehl für Weißzement
+  '/media/products/trass.webp',                // Weitere Produkte über Partner
+  '/media/products/calcium_oxide.webp',        // Spezialprodukte
+  '/media/products/quartz_sand.webp',          // Industrie- und Spezialsande
+  '/media/products/white_cement.webp',         // Weißzement
+  '/media/products/limestone_powder.webp',     // Kalksteinmehl
+  '/media/products/crushed_stone.webp',        // Schotter und Kies
+];
+---
+
+<SiteHeader t={t} locale={locale} slug={p.slug} />
+
+<div class="wrap">
+  <div class="page-head">
+    <h1>{p.title}</h1>
+    <p>{p.lead}</p>
+  </div>
+  <div class="cats">
+    {p.categories.map((c: any, i: number) => (
+      <div class="cat">
+        <div class="cat-img">
+          <img src={catImages[i]} alt={c.name} loading="lazy" decoding="async" />
+        </div>
+        <div class="cat-body">
+          <h3>{c.name}</h3>
+          <p>{c.body}</p>
+          {c.items && c.items.length > 0 && (
+            <ul class="items">{c.items.map((it: string) => <li>{it}</li>)}</ul>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<SiteFooter t={t} locale={locale} />

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fluid prototype</title>
+<style>
+  html,body{margin:0;height:100%;background:#f4f3ef;overflow:hidden;font-family:system-ui,sans-serif;
+    background-image:linear-gradient(#e3e2dd 1px,transparent 1px),linear-gradient(90deg,#e3e2dd 1px,transparent 1px);
+    background-size:44px 44px;}
+  #c{display:block;width:100vw;height:100vh;}
+  #ui{position:fixed;top:12px;left:12px;background:rgba(255,255,255,.9);border:1px solid #ddd;
+      border-radius:10px;padding:12px 14px;font-size:12px;color:#222;backdrop-filter:blur(4px);
+      box-shadow:0 6px 24px rgba(0,0,0,.08);width:236px;}
+  #ui h1{font-size:12px;margin:0 0 8px;letter-spacing:.08em;text-transform:uppercase;color:#666;}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:5px 0;}
+  .row label{flex:0 0 96px;color:#444;}
+  .row input[type=range]{flex:1;}
+  .row .val{flex:0 0 42px;text-align:right;font-variant-numeric:tabular-nums;color:#111;}
+  #stat{margin-top:8px;color:#888;}
+  #ui select,#ui button{width:100%;margin-top:6px;font-size:12px;padding:4px;}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="ui">
+  <h1>Fluid prototype</h1>
+  <div class="row"><label>Gravity</label><input id="gravity" type="range" min="0" max="0.9" step="0.01" value="0.18"><span class="val" id="gravity_v"></span></div>
+  <div class="row"><label>Radius h</label><input id="h" type="range" min="10" max="40" step="1" value="22"><span class="val" id="h_v"></span></div>
+  <div class="row"><label>Stiffness k</label><input id="k" type="range" min="0" max="0.02" step="0.0005" value="0.004"><span class="val" id="k_v"></span></div>
+  <div class="row"><label>Near k</label><input id="knear" type="range" min="0" max="0.06" step="0.001" value="0.029"><span class="val" id="knear_v"></span></div>
+  <div class="row"><label>Rest ρ</label><input id="rho0" type="range" min="1" max="12" step="0.2" value="4"><span class="val" id="rho0_v"></span></div>
+  <div class="row"><label>Viscosity</label><input id="visc" type="range" min="0" max="0.5" step="0.01" value="0.50"><span class="val" id="visc_v"></span></div>
+  <div class="row"><label>Bounce</label><input id="rest" type="range" min="0" max="0.9" step="0.02" value="0.26"><span class="val" id="rest_v"></span></div>
+  <div class="row"><label>Stream w</label><input id="streamw" type="range" min="4" max="400" step="2" value="84"><span class="val" id="streamw_v"></span></div>
+  <div class="row"><label>Flow rate</label><input id="rate" type="range" min="1" max="30" step="1" value="7"><span class="val" id="rate_v"></span></div>
+  <div class="row"><label>Particles</label><input id="count" type="range" min="400" max="8000" step="100" value="2600"><span class="val" id="count_v"></span></div>
+  <div class="row"><label>Obstacle</label><input id="sq" type="range" min="40" max="260" step="4" value="96"><span class="val" id="sq_v"></span></div>
+  <select id="container">
+    <option value="letters">Container: letters</option>
+    <option value="square">Container: square (obstacle)</option>
+  </select>
+  <select id="mode">
+    <option value="meta">Render: metaballs</option>
+    <option value="circle">Render: circles</option>
+    <option value="point">Render: points (debug)</option>
+  </select>
+  <button id="reset">Reset</button>
+  <div id="stat"></div>
+</div>
+
+<script>
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+let W=0,H=0,DPR=Math.min(window.devicePixelRatio||1,2);
+function resize(){ W=window.innerWidth; H=window.innerHeight; cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); if(CONTAINER==='letters') buildLogo(); }
+window.addEventListener('resize', resize);
+
+const P={};
+const ids=['gravity','h','k','knear','rho0','visc','rest','streamw','rate','count','sq'];
+function readUI(){ ids.forEach(id=>{const el=document.getElementById(id); P[id]=parseFloat(el.value); document.getElementById(id+'_v').textContent=el.value;}); }
+ids.forEach(id=>document.getElementById(id).addEventListener('input', readUI)); readUI();
+let MODE=document.getElementById('mode').value;
+document.getElementById('mode').addEventListener('change',e=>MODE=e.target.value);
+let CONTAINER=document.getElementById('container').value;
+document.getElementById('container').addEventListener('change',e=>{CONTAINER=e.target.value; reset(); if(CONTAINER==='letters')buildLogo();});
+
+// ---------- logo SDF (letters container) ----------
+let LOGO=null;
+function edt1d(f,n){const d=new Float64Array(n),v=new Int32Array(n),z=new Float64Array(n+1);let k=0;v[0]=0;z[0]=-1e20;z[1]=1e20;
+  for(let q=1;q<n;q++){let s=((f[q]+q*q)-(f[v[k]]+v[k]*v[k]))/(2*q-2*v[k]);while(s<=z[k]){k--;s=((f[q]+q*q)-(f[v[k]]+v[k]*v[k]))/(2*q-2*v[k]);}k++;v[k]=q;z[k]=s;z[k+1]=1e20;}
+  k=0;for(let q=0;q<n;q++){while(z[k+1]<q)k++;d[q]=(q-v[k])*(q-v[k])+f[v[k]];}return d;}
+function edt2d(g,w,h){const col=new Float64Array(h);for(let x=0;x<w;x++){for(let y=0;y<h;y++)col[y]=g[y*w+x];const d=edt1d(col,h);for(let y=0;y<h;y++)g[y*w+x]=d[y];}
+  const row=new Float64Array(w);for(let y=0;y<h;y++){for(let x=0;x<w;x++)row[x]=g[y*w+x];const d=edt1d(row,w);for(let x=0;x<w;x++)g[y*w+x]=d[x];}}
+function buildLogo(){
+  const img=new Image();
+  img.onload=()=>{
+    const aspect=img.width/img.height;
+    const w=Math.min(W*0.46, H*0.42*aspect), h=w/aspect;
+    const bx=W/2-w/2, by=H*0.40; // lower on screen -> room above for the pour
+    const gw=Math.max(80,Math.round(w*0.92)), gh=Math.max(50,Math.round(h*0.92));
+    const oc=document.createElement('canvas');oc.width=gw;oc.height=gh;
+    const o=oc.getContext('2d');o.clearRect(0,0,gw,gh);o.drawImage(img,0,0,gw,gh);
+    const a=o.getImageData(0,0,gw,gh).data;
+    const n=gw*gh, inside=new Float64Array(n), outside=new Float64Array(n);
+    for(let i=0;i<n;i++){const on=a[i*4+3]>127; inside[i]=on?1e20:0; outside[i]=on?0:1e20;}
+    edt2d(inside,gw,gh); edt2d(outside,gw,gh);
+    const sdf=new Float32Array(n);
+    for(let i=0;i<n;i++) sdf[i]=Math.sqrt(outside[i])-Math.sqrt(inside[i]); // + outside, - inside (grid px)
+    LOGO={sdf,gw,gh,box:{x:bx,y:by,w,h},scale:w/gw};
+  };
+  img.src='/logo_breitbach.svg';
+}
+// signed distance in SCREEN px at screen point (positive outside letters)
+function sdfAt(x,y){
+  if(!LOGO) return 1e9;
+  const {box,gw,gh,sdf,scale}=LOGO;
+  let gx=(x-box.x)/box.w*gw, gy=(y-box.y)/box.h*gh;
+  if(gx<0||gy<0||gx>=gw-1||gy>=gh-1){ // outside grid: approx distance to box, positive
+    const dx=Math.max(box.x-x, x-(box.x+box.w), 0), dy=Math.max(box.y-y, y-(box.y+box.h), 0);
+    return Math.hypot(dx,dy)+8;
+  }
+  const x0=Math.floor(gx), y0=Math.floor(gy), fx=gx-x0, fy=gy-y0;
+  const s00=sdf[y0*gw+x0], s10=sdf[y0*gw+x0+1], s01=sdf[(y0+1)*gw+x0], s11=sdf[(y0+1)*gw+x0+1];
+  const s=(s00*(1-fx)+s10*fx)*(1-fy)+(s01*(1-fx)+s11*fx)*fy;
+  return s*scale;
+}
+function sdfGrad(x,y){const e=2; const gx=sdfAt(x+e,y)-sdfAt(x-e,y), gy=sdfAt(x,y+e)-sdfAt(x,y-e); const l=Math.hypot(gx,gy)||1; return {x:gx/l,y:gy/l};}
+
+// ---------- particles ----------
+let parts=[];
+function square(){return {cx:W/2,cy:H/2,hs:P.sq/2};}
+function streamCenterX(){ return CONTAINER==='letters' && LOGO ? LOGO.box.x+LOGO.box.w/2 : W/2; }
+function streamTopY(){ return CONTAINER==='letters' && LOGO ? Math.max(30, LOGO.box.y-230) : 90; }
+function spawn(p){
+  const w=P.streamw;
+  p.x=streamCenterX()+(Math.random()-0.5)*w;
+  p.y=streamTopY()+Math.random()*20;
+  p.vx=(Math.random()-0.5)*0.6; p.vy=2+Math.random()*1.5;
+  p.px=p.x-p.vx; p.py=p.y-p.vy;
+}
+function reset(){parts=[];}
+document.getElementById('reset').addEventListener('click',reset);
+
+let grid=new Map();
+function gkey(a,b){return a+','+b;}
+function buildGrid(h){grid.clear();for(let i=0;i<parts.length;i++){const p=parts[i];const kk=gkey(Math.floor(p.x/h),Math.floor(p.y/h));let a=grid.get(kk);if(!a){a=[];grid.set(kk,a);}a.push(i);}}
+function neighbors(p,h,out){out.length=0;const cx=Math.floor(p.x/h),cy=Math.floor(p.y/h);for(let gx=cx-1;gx<=cx+1;gx++)for(let gy=cy-1;gy<=cy+1;gy++){const a=grid.get(gkey(gx,gy));if(a)for(let m=0;m<a.length;m++)out.push(a[m]);}}
+
+const nb=[];
+function step(){
+  const room=(P.count|0)-parts.length, toEmit=Math.min(P.rate|0,Math.max(0,room));
+  for(let e=0;e<toEmit;e++){const p={};spawn(p);parts.push(p);}
+  const h=P.h,dt=1,g=P.gravity,k=P.k,knear=P.knear,rho0=P.rho0,sigma=P.visc,rest=P.rest;
+  const sq=square();
+
+  for(const p of parts) p.vy+=g*dt;
+
+  buildGrid(h);
+  if(sigma>0){ for(let i=0;i<parts.length;i++){const p=parts[i];neighbors(p,h,nb);
+    for(const j of nb){if(j<=i)continue;const q2=parts[j];let dx=q2.x-p.x,dy=q2.y-p.y;const d=Math.hypot(dx,dy);
+      if(d>0&&d<h){const q=1-d/h;dx/=d;dy/=d;const u=(p.vx-q2.vx)*dx+(p.vy-q2.vy)*dy;
+        if(u>0){const I=dt*q*(sigma*u)*0.5;p.vx-=I*dx;p.vy-=I*dy;q2.vx+=I*dx;q2.vy+=I*dy;}}}}}
+
+  const vmax=h*0.7; // cap velocity to avoid tunnelling through thin letter walls
+  for(const p of parts){const sp=Math.hypot(p.vx,p.vy);if(sp>vmax){p.vx*=vmax/sp;p.vy*=vmax/sp;} p.px=p.x;p.py=p.y;p.x+=p.vx*dt;p.y+=p.vy*dt;}
+
+  buildGrid(h);
+  for(let i=0;i<parts.length;i++){const p=parts[i];neighbors(p,h,nb);
+    let rho=0,rhoNear=0;
+    for(const j of nb){if(j===i)continue;const q2=parts[j];const dx=q2.x-p.x,dy=q2.y-p.y;const d=Math.hypot(dx,dy);if(d<h){const q=1-d/h;rho+=q*q;rhoNear+=q*q*q;}}
+    const pr=k*(rho-rho0),prNear=knear*rhoNear;
+    for(const j of nb){if(j===i)continue;const q2=parts[j];let dx=q2.x-p.x,dy=q2.y-p.y;const d=Math.hypot(dx,dy);
+      if(d>0&&d<h){const q=1-d/h;dx/=d;dy/=d;const D=(dt*dt)*(pr*q+prNear*q*q);q2.x+=dx*D*0.5;q2.y+=dy*D*0.5;p.x-=dx*D*0.5;p.y-=dy*D*0.5;}}}
+
+  const alive=[];
+  for(const p of parts){
+    if(CONTAINER==='square'){
+      if(p.x>sq.cx-sq.hs&&p.x<sq.cx+sq.hs&&p.y>sq.cy-sq.hs&&p.y<sq.cy+sq.hs){
+        const dl=p.x-(sq.cx-sq.hs),dr=(sq.cx+sq.hs)-p.x,dtp=p.y-(sq.cy-sq.hs),db=(sq.cy+sq.hs)-p.y;const m=Math.min(dl,dr,dtp,db);
+        if(m===dl){p.x=sq.cx-sq.hs;p.px=p.x+Math.abs(p.x-p.px)*rest;}
+        else if(m===dr){p.x=sq.cx+sq.hs;p.px=p.x-Math.abs(p.x-p.px)*rest;}
+        else if(m===dtp){p.y=sq.cy-sq.hs;p.py=p.y+Math.abs(p.y-p.py)*rest;}
+        else{p.y=sq.cy+sq.hs;p.py=p.y-Math.abs(p.y-p.py)*rest;}
+      }
+    } else if(LOGO){
+      // letters ARE the containers: fluid falls in freely from above (the pour)
+      // but is blocked from LEAVING the letter interior (walls hold it in).
+      const sN=sdfAt(p.x,p.y);
+      if(sN>0){ const sP=sdfAt(p.px,p.py);
+        if(sP<=0){ // was inside, now crossing out -> block, push back inside, bounce
+          const gr=sdfGrad(p.x,p.y);
+          p.x-=gr.x*(sN+0.5); p.y-=gr.y*(sN+0.5);
+          const vx=p.x-p.px, vy=p.y-p.py, vn=vx*gr.x+vy*gr.y;
+          if(vn>0){ p.px+=(1+rest)*vn*gr.x; p.py+=(1+rest)*vn*gr.y; }
+        }
+      }
+    }
+    if(p.x<0){p.x=0;p.px=-p.px*rest;}
+    if(p.x>W){p.x=W;p.px=2*W-p.px*rest;}
+    if(p.y>H+40) continue;
+    p.vx=p.x-p.px;p.vy=p.y-p.py;
+    alive.push(p);
+  }
+  parts=alive;
+}
+
+// ---------- render ----------
+const off=document.createElement('canvas');const octx=off.getContext('2d');
+const mk=document.createElement('canvas');const mkctx=mk.getContext('2d');
+function drawMeta(){
+  if(off.width!==cv.width){off.width=cv.width;off.height=cv.height;}
+  octx.setTransform(DPR,0,0,DPR,0,0);octx.clearRect(0,0,W,H);
+  const r=P.h*0.9;
+  for(const p of parts){const g=octx.createRadialGradient(p.x,p.y,0,p.x,p.y,r);g.addColorStop(0,'rgba(30,30,32,1)');g.addColorStop(1,'rgba(30,30,32,0)');octx.fillStyle=g;octx.beginPath();octx.arc(p.x,p.y,r,0,7);octx.fill();}
+  // clip the fluid to (letters ∪ stream column) — build the union mask once
+  if(CONTAINER==='letters' && LOGOIMG && LOGO){
+    const b=LOGO.box, cx=b.x+b.w/2;
+    if(mk.width!==cv.width){mk.width=cv.width;mk.height=cv.height;}
+    mkctx.setTransform(DPR,0,0,DPR,0,0);mkctx.clearRect(0,0,W,H);
+    mkctx.drawImage(LOGOIMG,b.x,b.y,b.w,b.h);
+    mkctx.fillStyle='#000';
+    mkctx.fillRect(cx-P.streamw/2-12, 0, P.streamw+24, b.y+18);
+    octx.globalCompositeOperation='destination-in';
+    octx.drawImage(mk,0,0,W,H);
+    octx.globalCompositeOperation='source-over';
+  }
+  ctx.filter='blur(5px) contrast(22)';ctx.drawImage(off,0,0,W,H);ctx.filter='none';
+}
+function drawCircles(){ctx.fillStyle='#26262a';for(const p of parts){ctx.beginPath();ctx.arc(p.x,p.y,P.h*0.42,0,7);ctx.fill();}}
+function drawPoints(){ctx.fillStyle='#1e6cff';for(const p of parts)ctx.fillRect(p.x-1.5,p.y-1.5,3,3);}
+function drawGuide(){
+  if(CONTAINER==='square'){const sq=square();ctx.strokeStyle='#c9c7c0';ctx.lineWidth=2;ctx.strokeRect(sq.cx-sq.hs,sq.cy-sq.hs,sq.hs*2,sq.hs*2);ctx.fillStyle='rgba(210,208,201,.35)';ctx.fillRect(sq.cx-sq.hs,sq.cy-sq.hs,sq.hs*2,sq.hs*2);}
+  else if(LOGO && LOGOIMG){ctx.globalAlpha=0.12;ctx.drawImage(LOGOIMG,LOGO.box.x,LOGO.box.y,LOGO.box.w,LOGO.box.h);ctx.globalAlpha=1;}
+}
+let LOGOIMG=null;
+(function preloadLogo(){const i=new Image();i.onload=()=>LOGOIMG=i;i.src='/logo_breitbach.svg';})();
+
+let last=performance.now(),fps=60;
+function frame(now){
+  step();
+  ctx.clearRect(0,0,W,H);
+  drawGuide();
+  if(MODE==='meta')drawMeta();else if(MODE==='circle')drawCircles();else drawPoints();
+  const dt=now-last;last=now;fps+=((1000/dt)-fps)*0.1;
+  document.getElementById('stat').textContent=parts.length+' particles · '+fps.toFixed(0)+' fps';
+  requestAnimationFrame(frame);
+}
+resize();
+if(CONTAINER==='letters') buildLogo();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+---
+import SiteHeader from '../SiteHeader.astro';
+import SiteFooter from '../SiteFooter.astro';
+interface Props { t: any; locale: string; }
+const { t, locale } = Astro.props;
+const p = t.pages.kontakt;
+---
+
+<SiteHeader t={t} locale={locale} slug={p.slug} />
+
+<div class="wrap">
+  <div class="page-head">
+    <h1>{p.title}</h1>
+    <p>{p.lead}</p>
+  </div>
+
+  <div class="kontakt-grid">
+    <div class="kf-form">
+      <form action={`mailto:${t.contact.email}`} method="post" enctype="text/plain">
+        {p.form.fields.map((f: any) => (
+          <div class="form-row">
+            <label for={f.name}>{f.label}{f.required && <span class="req"> *</span>}</label>
+            {f.type === 'textarea'
+              ? <textarea id={f.name} name={f.name} required={f.required}></textarea>
+              : <input id={f.name} name={f.name} type={f.type} required={f.required} />}
+          </div>
+        ))}
+        <button class="btn" type="submit"><span>{p.form.submit}</span><span class="arw">→</span></button>
+        <p class="kf-note">{p.form.note}</p>
+      </form>
+    </div>
+    <div class="kf-side">
+      <div class="label">{t.contact.standortLabel}</div>
+      <address>
+        {t.contact.address.map((l: string, i: number) => (<Fragment>{i > 0 && <br />}{l}</Fragment>))}
+      </address>
+      <dl class="cdl">
+        {t.contact.rows.map((r: any) => (<Fragment><dt>{r.k}</dt><dd>{r.v}</dd></Fragment>))}
+      </dl>
+    </div>
+  </div>
+</div>
+
+<section id="karte">
+  <div class="wrap sec" style="padding-bottom:0">
+    <div class="sec-head">
+      <h2>{p.mapHeading}</h2>
+      <div class="aside">{t.map.aside}</div>
+    </div>
+  </div>
+  <div class="mapwrap">
+    <iframe
+      title={p.mapHeading}
+      src="https://www.openstreetmap.org/export/embed.html?bbox=7.30%2C50.36%2C7.42%2C50.42&layer=mapnik&marker=50.3906%2C7.3606"
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</section>
+
+<SiteFooter t={t} locale={locale} />

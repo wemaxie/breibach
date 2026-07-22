@@ -1,0 +1,44 @@
+---
+import Logo from './Logo.astro';
+
+interface Props {
+  t: any;
+  locale: string;
+}
+const { t, locale } = Astro.props;
+
+const base = locale === 'de' ? '' : `/${locale}`;
+const home = base === '' ? '/' : `${base}/`;
+const pageHref = (s: string) => (s ? `${base}/${s}` : home);
+---
+
+<footer class="site">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <Logo />
+      <p>{t.footer.blurb}</p>
+    </div>
+    {t.footer.cols.map((c: any) => (
+      <div class={c.wide ? 'foot-col wide' : 'foot-col'}>
+        <h5>{c.head}</h5>
+        <ul>
+          {c.items.map((it: any) => (
+            <li>
+              {it.slug ? <a href={pageHref(it.slug)}>{it.label}</a>
+                : it.href ? <a href={it.href}>{it.label}</a>
+                : it.label}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+  <div class="wrap foot-bar">
+    <span>{t.footer.copyright}</span>
+    <span>
+      {t.footer.legal.map((l: any, i: number) => (
+        <Fragment>{i > 0 && ' · '}<a href={l.slug ? pageHref(l.slug) : (l.href || '#')}>{l.label}</a></Fragment>
+      ))}
+    </span>
+  </div>
+</footer>

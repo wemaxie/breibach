@@ -1,0 +1,10 @@
+---
+// Brand mark (BB) — inline SVG for a crisp LCP and no image request.
+const logoPaths = [
+  { d: 'M0 0 C165.66 0 331.32 0 502 0 C502 73.26 502 146.52 502 222 C520.81 222 539.62 222 559 222 C559 332.55 559 443.1 559 557 L0 556 C0 372.52 0 189.04 0 0 Z M113 112 L113 222 L390 222 L390 112 Z M113 334 L113 445 L446 445 L446 334 Z ', t: 'translate(610,0)' },
+  { d: 'M0 0 C165.66 0 331.32 0 502 0 C502 183.48 502 366.96 502 556 L-57 557 C-57 446.45 -57 335.9 -57 222 C-38.19 222 -19.38 222 0 222 C0 148.74 0 75.48 0 0 Z M112 112 L112 222 L389 222 L389 112 Z M56 334 L56 445 L389 445 L389 334 Z ', t: 'translate(57,0)' },
+];
+---
+<svg viewBox="0 0 1169 558" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  {logoPaths.map((p) => <path d={p.d} transform={p.t} fill="#20201E" />)}
+</svg>

@@ -1,0 +1,165 @@
+:root {
+  --paper: #f4f3ef; /* light blueprint paper */
+  --grid: #d9d8d2; /* major grid line */
+  --grid-fine: #e7e6e1; /* fine grid line */
+  --ink: #17171a; /* near-black, set-concrete / text */
+  --brand: #20201e; /* logo brand near-black */
+  --muted: #6d6b64;
+  --line: #cfcdc6;
+  --maxw: 1320px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Neue Haas Grotesk (licensed, first) → free stand-in: Inter → Helvetica */
+  --font: 'Neue Haas Grotesk Display Pro', 'Neue Haas Grotesk Display', 'Neue Haas Grotesk',
+    'Inter Variable', 'Inter', 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100svh;
+  color: var(--ink);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  background-color: var(--paper);
+  /* Large blueprint grid + finer sub-grid */
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    linear-gradient(var(--grid-fine) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-fine) 1px, transparent 1px);
+  background-size:
+    96px 96px,
+    96px 96px,
+    24px 24px,
+    24px 24px;
+  background-position: center top;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  isolation: isolate;
+}
+
+/* ---------- header ---------- */
+.hero__bar {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 1.35rem clamp(1.2rem, 4vw, 3.2rem);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(3px);
+}
+.hero__wordmark {
+  font-weight: 600;
+  font-size: 0.98rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+.hero__nav {
+  display: flex;
+  gap: clamp(1.2rem, 3vw, 2.6rem);
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero__nav a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s var(--ease);
+}
+.hero__nav a:hover {
+  color: var(--ink);
+}
+@media (max-width: 640px) {
+  .hero__nav {
+    gap: 1rem;
+    font-size: 0.72rem;
+  }
+}
+
+/* ---------- stage (logo + pour) ---------- */
+.hero__stage {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vh, 3rem) 1rem 0;
+}
+/* Canvas overlays the whole stage so the pour/splash has room ABOVE the logo. */
+.hero__canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+.hero__canvas canvas {
+  display: block;
+}
+/* LCP poster + reduced-motion / no-JS fallback: crisp dark logo. */
+.hero__poster {
+  position: relative;
+  z-index: 1;
+  width: min(64vw, 46vh);
+}
+.hero__poster svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- headline ---------- */
+.hero__headline {
+  position: relative;
+  z-index: 3;
+  width: min(100% - 2rem, var(--maxw));
+  margin: 0 auto;
+  padding: 0 0 clamp(2rem, 6vh, 4.5rem);
+  text-align: center;
+}
+.hero__title {
+  font-size: clamp(2.2rem, 7.2vw, 5.6rem);
+  line-height: 0.98;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.hero__title span {
+  display: block;
+}
+.hero__sub {
+  margin: 1.4rem auto 0;
+  max-width: 46ch;
+  font-size: clamp(0.98rem, 1.4vw, 1.12rem);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* Reduced motion / no JS: hide the canvas, keep the crisp SVG poster. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__canvas {
+    display: none;
+  }
+}
+.no-js .hero__canvas {
+  display: none;
+}

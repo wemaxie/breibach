@@ -1,0 +1,57 @@
+---
+import Logo from './Logo.astro';
+
+interface Props {
+  t: any;
+  locale: string;
+  slug?: string; // current page slug ('' = home) so the language switch stays on the same page
+}
+const { t, locale, slug = '' } = Astro.props;
+
+const base = locale === 'de' ? '' : `/${locale}`;
+const home = base === '' ? '/' : `${base}/`;
+const pageHref = (s: string) => (s ? `${base}/${s}` : home);
+
+const locales = [
+  { code: 'de', label: 'DE', href: slug ? `/${slug}` : '/' },
+  { code: 'en', label: 'EN', href: slug ? `/en/${slug}` : '/en/' },
+  { code: 'fr', label: 'FR', href: slug ? `/fr/${slug}` : '/fr/' },
+];
+---
+
+<header class="site">
+  <div class="wrap head-in">
+    <a class="brand" href={home} aria-label="Baustoffe Breitbach">
+      <Logo />
+      <span class="wordmark">Breitbach.</span>
+    </a>
+    <div class="head-right">
+      <nav class="main" id="nav">
+        {t.nav.map((n: any) => <a href={pageHref(n.slug)}>{n.label}</a>)}
+      </nav>
+      <div class="lang" aria-label="Sprache / Language / Langue">
+        {locales.map((l) => (
+          <a href={l.href} lang={l.code} class={l.code === locale ? 'on' : ''} aria-current={l.code === locale ? 'true' : undefined}>{l.label}</a>
+        ))}
+      </div>
+      <button class="burger" id="burger" aria-label="Menü" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    var b = document.getElementById('burger'), n = document.getElementById('nav');
+    if (b && n) {
+      b.addEventListener('click', function () {
+        var open = n.classList.toggle('open');
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      n.addEventListener('click', function (e) {
+        if (e.target.tagName === 'A') { n.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); }
+      });
+    }
+  })();
+</script>

@@ -1,0 +1,61 @@
+---
+import '@fontsource-variable/inter';
+import '../styles/site.css';
+
+interface Props {
+  lang: string;
+  title: string;
+  description: string;
+}
+const { lang, title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/logo_breitbach.svg" />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import Lenis from 'lenis';
+      import 'lenis/dist/lenis.css';
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduce) {
+        const lenis = new Lenis({
+          duration: 1.05,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Smooth in-page anchor scrolling, offset for the sticky 74px header.
+        document.addEventListener('click', (e) => {
+          const a = (e.target as HTMLElement)?.closest?.('a[href^="#"]');
+          if (!a) return;
+          const hash = a.getAttribute('href');
+          if (!hash || hash === '#') return;
+          const el = document.querySelector(hash);
+          if (el) {
+            e.preventDefault();
+            lenis.scrollTo(el, { offset: -80 });
+            history.pushState(null, '', hash);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

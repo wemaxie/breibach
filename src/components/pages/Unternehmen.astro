@@ -1,0 +1,36 @@
+---
+import SiteHeader from '../SiteHeader.astro';
+import SiteFooter from '../SiteFooter.astro';
+interface Props { t: any; locale: string; }
+const { t, locale } = Astro.props;
+const p = t.pages.unternehmen;
+---
+
+<SiteHeader t={t} locale={locale} slug={p.slug} />
+
+<div class="wrap">
+  <div class="page-head">
+    <h1>{p.title}</h1>
+    <p>{p.lead}</p>
+  </div>
+  <div class="blocks">
+    {p.blocks.map((b: any) => (
+      <div class="block"><h3>{b.heading}</h3><div class="b">{b.body}</div></div>
+    ))}
+  </div>
+</div>
+
+<div class="wrap sec">
+  <div class="sec-head"><h2>{p.inhaber.heading}</h2></div>
+  <div class="owner">
+    <div class="o-img">
+      <img src="/media/owner.webp" alt={p.inhaber.name} loading="lazy" decoding="async" />
+    </div>
+    <div class="o-body">
+      <div class="o-name">{p.inhaber.name}</div>
+      <p>{p.inhaber.body}</p>
+    </div>
+  </div>
+</div>
+
+<SiteFooter t={t} locale={locale} />

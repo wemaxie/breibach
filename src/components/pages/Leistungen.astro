@@ -1,0 +1,23 @@
+---
+import SiteHeader from '../SiteHeader.astro';
+import SiteFooter from '../SiteFooter.astro';
+interface Props { t: any; locale: string; }
+const { t, locale } = Astro.props;
+const p = t.pages.leistungen;
+---
+
+<SiteHeader t={t} locale={locale} slug={p.slug} />
+
+<div class="wrap">
+  <div class="page-head">
+    <h1>{p.title}</h1>
+    <p>{p.lead}</p>
+  </div>
+  <div class="blocks">
+    {p.blocks.map((b: any) => (
+      <div class="block"><h3>{b.heading}</h3><div class="b">{b.body}</div></div>
+    ))}
+  </div>
+</div>
+
+<SiteFooter t={t} locale={locale} />
