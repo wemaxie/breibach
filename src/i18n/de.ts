@@ -8,9 +8,9 @@ export const lang = 'de';
 const LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.';
 
 export const meta = {
-  title: 'Baustoffe Breitbach e.K. · Gesteinskörnungen, Steinmehl und Trass aus der Vulkaneifel',
+  title: 'Baustoff-Großhandel Breitbach e.K. · Rohstoffe für die Beton- und Zementindustrie',
   description:
-    'Baustoffe Breitbach e.K., Kruft. Großhandel für Betonzuschlag nach DIN EN 12620, Splitt, Schotter, Trass und Steinmehl aus Basalt, Diabas und Grauwacke. Lieferung in Deutschland, Benelux und Frankreich.',
+    'Baustoff-Großhandel Breitbach e.K., Kruft. Rohstoffe für die Beton- und Zementindustrie, technische Anwendungen für die Betonfertigteilindustrie und internationales Rohstoff Sourcing. Lieferung in Deutschland, Benelux und Frankreich.',
 };
 
 export const content = {
@@ -20,11 +20,14 @@ export const content = {
     { slug: 'leistungen', label: 'Leistungen' },
     { slug: 'kontakt', label: 'Kontakt' },
   ],
-  heroMeta: ['Kruft, Vulkaneifel', 'DE · Benelux · FR'],
+  heroMeta: ['Kruft, Rheinland-Pfalz', 'DE · Benelux · FR'],
   hero: {
-    title: 'Betonzuschlag, Splitt und Steinmehl aus der Vulkaneifel.',
-    sub: 'Baustoffe Breitbach e.K. liefert güteüberwachte Gesteinskörnungen nach DIN EN 12620, Trass, Schotter und Gesteinsmehl aus Basalt, Diabas und Grauwacke. Als Großhandel an Beton, Asphalt und Bauwirtschaft.',
-    imageLabel: ['Bildfläche · Foto folgt', 'Tagebau, Rohkies und Basaltsplitt aus der Vulkaneifel'],
+    // Wording set by the client on 2026-07-23. Both lines sit in the headline size.
+    lines: [
+      'Seit mehr als 40 Jahren',
+      'Innovative Rohstofflösungen und technische Anwendungen für die Beton- und Zementindustrie',
+    ],
+    imageLabel: ['Bildfläche · Foto folgt', 'Zementverladung, Rohstofflieferung, Betrieb'],
   },
   slogan: {
     pre: 'Bauen im Einklang mit der ',
@@ -33,24 +36,25 @@ export const content = {
     body: 'Rohstoffe aus der Region, kurze Transportwege und die Wiederaufbereitung mineralischer Baustoffe. Der Rohstoff bleibt Naturstein, von der Abbaustätte bis zur Baustelle.',
   },
   products: {
-    heading: 'Lieferprogramm: Körnungen von 0/2 bis 32/45 mm.',
-    aside: 'Betonzuschlag, Splitt, Schotter, Sand, Trass und Steinmehl. Lose per Kipper und Silozug oder in Big Bags. Gesteinsart und Körnung nach Bedarf.',
+    heading: 'Rohstoffe, technische Anwendungen und internationales Sourcing.',
+    aside: 'Drei Bereiche, ein Ansprechpartner. Lieferung lose im Silozug, in Big Bags oder als Sackware, im Inland wie im Export.',
     more: 'Alle Produkte',
-    cols: ['Produkt', 'Körnung', 'Norm', 'Anwendung'],
-    rows: [
-      { name: 'Betonkies', note: 'Rundkorn', kor: '0/2 · 2/8 · 8/16 · 16/32 mm', norm: 'DIN EN 12620', use: 'Transport- und Ortbeton, Estrich' },
-      { name: 'Betonsand', note: '', kor: '0/2 mm', norm: 'DIN EN 12620', use: 'Beton, Mörtel, Fugensand' },
-      { name: 'Splitt', note: 'Basalt / Diabas', kor: '2/5 · 5/8 · 8/11 · 11/16 mm', norm: 'DIN EN 13043', use: 'Asphalt, Beton, Drainage' },
-      { name: 'Edelsplitt', note: '', kor: '2/5 · 5/8 mm', norm: 'DIN EN 13043', use: 'Asphaltdeck- und Binderschichten' },
-      { name: 'Schotter', note: '', kor: '0/32 · 0/45 · 32/45 mm', norm: 'DIN EN 13242', use: 'Trag- und Frostschutzschichten' },
-      { name: 'Brechsand', note: '', kor: '0/2 · 0/5 mm', norm: 'DIN EN 13242', use: 'Ungebundene Schichten, Pflasterbett' },
-      { name: 'Steinmehl', note: 'Basalt, Diabas, Grauwacke, Mikrodiorit, Kalkstein', kor: '0/0,09 mm', norm: 'DIN EN 12620', use: 'Füller für Beton und Asphalt, Landwirtschaft, Industrie' },
-      { name: 'Trass', note: 'vulkanischer Tuff', kor: 'gemahlen', norm: 'DIN 51043', use: 'Trasszement, Trasskalk, Natursteinverlegung' },
-      { name: 'Frostschutzkies', note: '', kor: '0/32 · 0/45 mm', norm: 'DIN EN 13242', use: 'Frostschutzschichten im Straßenbau' },
-      { name: 'Recycling-Baustoff', note: 'güteüberwacht', kor: '0/45 mm', norm: 'DIN EN 13242', use: 'Erd- und Wegebau, Verfüllung' },
-      { name: 'Weißzement', note: '', kor: 'CEM I 42,5 · 52,5', norm: 'DIN EN 197-1', use: 'Sichtbeton, Terrazzo, Fertigteile' },
-      { name: 'Branntkalk', note: '', kor: '0/3 mm', norm: 'DIN EN 459', use: 'Bodenverbesserung, Mörtel' },
-      { name: 'Dekorkies', note: 'Zierkorn', kor: '8/16 · 16/32 mm', norm: 'n. genormt', use: 'Garten- und Landschaftsbau' },
+    groups: [
+      {
+        name: 'Rohstoffe für die Beton- und Zementindustrie',
+        body: 'Mineralische Ausgangs- und Zusatzstoffe für Zementwerke, Transportbeton- und Betonfertigteilwerke. Steinmehle wirken als Füller, Zement und Klinker als Bindemittel, Bims und Lava als Leichtzuschlag.',
+        items: ['Steinmehle', 'Weißzement', 'Grauzement', 'Klinker', 'Flugasche', 'Bims', 'Lava', 'Gips'],
+      },
+      {
+        name: 'Technische Anwendungen für die Betonfertigteilindustrie',
+        body: 'Schalungs- und Formentechnik für die Fertigteil- und Betonsteinproduktion. Magnetsysteme, Abschalungen und Formen für den Stahltisch und die Umlaufanlage.',
+        items: ['Magnetboxen', 'Abschaler', 'Magnetleisten', 'Betonabstandhalter / Spacer', 'Kipptische', 'Kunststoffbretter für die Betonstein-Herstellung', 'Formen zur Steinfertigung'],
+      },
+      {
+        name: 'Internationales Rohstoff Sourcing',
+        body: 'Beschaffung und Handel von Metallen und Erzen über internationale Lieferanten und Handelspartner. Spezifikation, Menge und Lieferweg je Anfrage.',
+        items: ['Eisen und Eisenerz', 'Nickel', 'Aluminium', 'Kupfer', 'Altmetalle'],
+      },
     ],
   },
   band: { label: ['Bildfläche · Foto folgt', 'Basaltsplitt 8/11 an der Halde'], caption: 'Basaltsplitt 8/11, Osteifel' },
@@ -93,15 +97,15 @@ export const content = {
     aside: 'Geführt von Daniel Breitbach. Sitz in Kruft, am Rand der Osteifel zwischen Laacher See und Rhein.',
     more: 'Mehr über uns',
     paras: [
-      'Aus einem regionalen Handel für Sand und Kies ist ein Großhandel für mineralische Baustoffe geworden. Der Schwerpunkt liegt auf Gesteinskörnungen für Beton und Asphalt sowie auf Steinmehl aus Vulkangestein der Eifel.',
-      'Wir beraten zu Körnung, Gesteinsart und Norm, disponieren die Anlieferung und liefern termingerecht an Betonwerke, Asphaltmischanlagen und Bauunternehmen in Deutschland, den Benelux-Ländern und Frankreich.',
+      'Aus einem regionalen Handel für Sand und Kies ist ein Großhandel für mineralische Rohstoffe geworden. Der Schwerpunkt liegt heute auf Ausgangs- und Zusatzstoffen für die Beton- und Zementindustrie sowie auf technischen Anwendungen für die Betonfertigteilindustrie.',
+      'Wir beraten zur Rezeptur und zum Einsatz, disponieren die Anlieferung und liefern termingerecht an Zementwerke, Betonwerke und Verarbeiter in Deutschland, den Benelux-Ländern und Frankreich. Hinzu kommt die internationale Beschaffung von Metallen und Erzen.',
       'Kurze Wege, feste Ansprechpartner und eine gleichbleibende Qualität. Das ist die Grundlage, auf der Kunden seit Jahrzehnten planen.',
     ],
     facts: [
-      { v: '40+', l: 'Jahre im Baustoffhandel' },
+      { v: '40+', l: 'Jahre im Rohstoffhandel' },
+      { v: '3', l: 'Produktbereiche' },
       { v: '3', l: 'Länder im Liefergebiet' },
-      { v: '5', l: 'Gesteinsarten für Steinmehl' },
-      { v: 'DIN EN', l: 'Güteüberwachte Körnungen' },
+      { v: 'Export', l: 'Internationale Beschaffung' },
     ],
   },
   partners: {
@@ -110,7 +114,7 @@ export const content = {
     slots: ['Partnerlogo', 'Partnerlogo', 'Partnerlogo', 'Partnerlogo', 'Partnerlogo', 'Partnerlogo'],
   },
   map: {
-    heading: 'Standort Kruft, Vulkaneifel.',
+    heading: 'Standort Kruft, Rheinland-Pfalz.',
     aside: 'Reuschenlay 32, 56642 Kruft. Anlieferung und Selbstabholung nach Absprache.',
   },
   contact: {
@@ -127,7 +131,7 @@ export const content = {
     address: ['Baustoffe Breitbach e.K.', 'Reuschenlay 32', '56642 Kruft', 'Deutschland'],
   },
   footer: {
-    blurb: 'Großhandel für Gesteinskörnungen, Trass und Steinmehl aus der Vulkaneifel.',
+    blurb: 'Rohstoffe für die Beton- und Zementindustrie, technische Anwendungen für die Betonfertigteilindustrie und internationales Rohstoff Sourcing.',
     cols: [
       { head: 'Anschrift', wide: true, items: [
         { label: 'Baustoffe Breitbach e.K.' }, { label: 'Reuschenlay 32' }, { label: '56642 Kruft' }, { label: 'Deutschland' },
@@ -167,19 +171,32 @@ export const content = {
         body: 'Platzhalter · Kurzvorstellung des Inhabers Daniel Breitbach (Werdegang, Rolle, ggf. weitere Geschäftsleitung). ' + LOREM,
       },
     },
+    // Restructured 2026-07-28 to the three groups the client specified on 2026-07-23.
+    // The previous eight stone-centric categories are in git history if they are needed back.
+    // catImages in components/pages/Produkte.astro is matched to this list BY INDEX.
     produkte: {
       slug: 'produkte',
-      title: 'Produkte und Steinmehl',
-      lead: 'Platzhalter · Einleitung zum Sortiment: ausschließlich nach DIN 12620 zertifizierte Produkte für die Betonherstellung, dazu eine ganze Steinmehl-Linie. ' + LOREM,
+      title: 'Produkte',
+      lead: 'Das Lieferprogramm gliedert sich in drei Bereiche: mineralische Rohstoffe für die Beton- und Zementindustrie, technische Anwendungen für die Betonfertigteilindustrie und internationales Rohstoff Sourcing.',
       categories: [
-        { name: 'Steinmehl / Gesteinsmehl', imageLabel: ['Bildfläche · Foto folgt', 'Steinmehl / Gesteinsmehl'], body: 'Platzhalter · Beschreibung der Steinmehl-Linie und Hinweis auf Dutzende Produkte mit unterschiedlichen Farbtönen und Eigenschaften, persönliche Beratung. ' + LOREM, items: ['Basaltmehl', 'Diabasmehl', 'Grauwackemehl', 'Mikrodioritmehl', 'Kalksteinmehl'] },
-        { name: 'Spezialsteinmehl für Weißzement', imageLabel: ['Bildfläche · Foto folgt', 'Spezialsteinmehl'], body: 'Platzhalter · Spezielles Steinmehl für den Einsatz mit Weißzementen, das ein deutliches Einsparpotenzial ermöglicht. ' + LOREM, items: [] },
-        { name: 'Weitere Produkte über Partner', imageLabel: ['Bildfläche · Foto folgt', 'Trass, Basalt, Kies, Schotter'], body: 'Platzhalter · Zusätzliche Produkte, die gemeinsam mit Partnern angeboten werden. ' + LOREM, items: ['Trass', 'Basalt', 'Kies', 'Schotter', 'Weißzement'] },
-        { name: 'Spezialprodukte', imageLabel: ['Bildfläche · Foto folgt', 'Spezialprodukte'], body: 'Platzhalter · Spezialprodukte neben dem Standardsortiment für Betonindustrie, industrielle Fertigung und Landwirtschaft. ' + LOREM, items: ['Calciumoxid (Branntkalk)', 'verschiedene Aschen', 'Bauxit', 'Dekorkies (schwarz und weiß)'] },
-        { name: 'Industrie- und Spezialsande', imageLabel: ['Bildfläche · Foto folgt', 'Spezialsande'], body: 'Platzhalter · Spezialsande für Betonherstellung und industrielle Prozesse, Beispiel Quarzitsande. ' + LOREM, items: ['Quarzitsand', 'weitere Spezialsande'] },
-        { name: 'Weißzement', imageLabel: ['Bildfläche · Foto folgt', 'Weißzement'], body: 'Platzhalter · Hochwertiger Weißzement der Klassen 42,5 und 52,5, Lieferung in Säcken oder im Silozug, über internationalen Partner. ' + LOREM, items: ['CEM I 42,5', 'CEM I 52,5'] },
-        { name: 'Kalksteinmehl', imageLabel: ['Bildfläche · Foto folgt', 'Kalksteinmehl'], body: 'Platzhalter · Kalksteinmehl als wichtiger Bestandteil in Betonherstellung und Landwirtschaft, auch als Entstaubungsfüller. ' + LOREM, items: [] },
-        { name: 'Schotter und Kies', imageLabel: ['Bildfläche · Foto folgt', 'Schotter und Kies'], body: 'Platzhalter · Schotter und Kies aus verschiedenen Gesteinen, Körnungen und Mengen, von Dekorschotter bis Großmengen, aus dem In- und Ausland. ' + LOREM, items: ['Schotter', 'Kies', 'Splitt', 'Dekorschotter'] },
+        {
+          name: 'Rohstoffe für die Beton- und Zementindustrie',
+          imageLabel: ['Bildfläche · Foto folgt', 'Steinmehl, Zement, Rohstoffe'],
+          body: 'Ausgangs- und Zusatzstoffe für Zementwerke, Transportbeton- und Betonfertigteilwerke. Steinmehle werden als Füller eingesetzt und wirken auf Kornaufbau, Verarbeitbarkeit und Farbe des Betons. Weiß- und Grauzement sowie Klinker gehen als Bindemittel in die Rezeptur ein, Flugasche als puzzolanischer Zusatzstoff. Bims und Lava dienen als Leichtzuschlag, Gips als Erstarrungsregler im Zement. Lieferung lose im Silozug, in Big Bags oder als Sackware.',
+          items: ['Steinmehle', 'Weißzement', 'Grauzement', 'Klinker', 'Flugasche', 'Bims', 'Lava', 'Gips'],
+        },
+        {
+          name: 'Technische Anwendungen für die Betonfertigteilindustrie',
+          imageLabel: ['Bildfläche · Foto folgt', 'Magnetsysteme und Schalung auf dem Stahltisch'],
+          body: 'Ausrüstung und Verbrauchsmaterial für die Produktion von Betonfertigteilen und Betonwaren. Magnetboxen, Magnetleisten und Abschaler fixieren und begrenzen die Schalung auf dem Stahltisch und lassen sich ohne Bohren umsetzen. Kipptische dienen dem Aufrichten fertiger Elemente, Betonabstandhalter sichern die Betondeckung der Bewehrung. Für die Betonstein-Herstellung kommen Kunststoffbretter als Unterlage sowie Formen zur Steinfertigung hinzu.',
+          items: ['Magnetboxen', 'Abschaler', 'Magnetleisten', 'Betonabstandhalter / Spacer', 'Kipptische', 'Kunststoffbretter für die Betonstein-Herstellung', 'Formen zur Steinfertigung'],
+        },
+        {
+          name: 'Internationales Rohstoff Sourcing',
+          imageLabel: ['Bildfläche · Foto folgt', 'Verladung im Hafen'],
+          body: 'Beschaffung von Metallen und Erzen über internationale Lieferanten und Handelspartner. Angefragt und geliefert werden Eisen und Eisenerz, Nickel, Aluminium und Kupfer sowie Altmetalle zur Wiederverwertung. Spezifikation, Menge und Lieferweg werden je Anfrage abgestimmt.',
+          items: ['Eisen und Eisenerz', 'Nickel', 'Aluminium', 'Kupfer', 'Altmetalle'],
+        },
       ],
     },
     leistungen: {

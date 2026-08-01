@@ -5,16 +5,13 @@ interface Props { t: any; locale: string; }
 const { t, locale } = Astro.props;
 const p = t.pages.produkte;
 
-// Category photos, in the same order as pages.produkte.categories (locale-independent).
+// Category photos, positionally matched to pages.produkte.categories (locale-independent).
+// Keep this array the same length and order as that list in EVERY locale file.
+// null = no photograph yet; the grey labelled placeholder renders instead.
 const catImages = [
-  '/media/products/stone_powder.webp',         // Steinmehl / Gesteinsmehl
-  '/media/products/special_stone_powder.webp', // Spezialsteinmehl für Weißzement
-  '/media/products/trass.webp',                // Weitere Produkte über Partner
-  '/media/products/calcium_oxide.webp',        // Spezialprodukte
-  '/media/products/quartz_sand.webp',          // Industrie- und Spezialsande
-  '/media/products/white_cement.webp',         // Weißzement
-  '/media/products/limestone_powder.webp',     // Kalksteinmehl
-  '/media/products/crushed_stone.webp',        // Schotter und Kies
+  '/media/products/stone_powder.webp', // Rohstoffe für die Beton- und Zementindustrie
+  null,                                // Technische Anwendungen — client photo still missing
+  '/media/zementverladung.webp',       // Internationales Rohstoff Sourcing
 ];
 ---
 
@@ -29,7 +26,9 @@ const catImages = [
     {p.categories.map((c: any, i: number) => (
       <div class="cat">
         <div class="cat-img">
-          <img src={catImages[i]} alt={c.name} loading="lazy" decoding="async" />
+          {catImages[i]
+            ? <img src={catImages[i]} alt={c.name} loading="lazy" decoding="async" />
+            : <div class="ph"><span class="ph-label">{c.imageLabel[1]}</span></div>}
         </div>
         <div class="cat-body">
           <h3>{c.name}</h3>

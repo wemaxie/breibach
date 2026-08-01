@@ -23,8 +23,7 @@ const pageHref = (s: string) => (s ? `${base}/${s}` : (base === '' ? '/' : `${ba
     {t.heroMeta.map((m: string) => <span>{m}</span>)}
   </div>
   <div class="hero-block">
-    <h1 class="reveal">{t.hero.title}</h1>
-    <p class="reveal d1">{t.hero.sub}</p>
+    <h1 class="reveal">{t.hero.lines.map((l: string) => <span>{l}</span>)}</h1>
   </div>
 </section>
 
@@ -49,23 +48,16 @@ const pageHref = (s: string) => (s ? `${base}/${s}` : (base === '' ? '/' : `${ba
       <h2>{t.products.heading}</h2>
       <div class="aside">{t.products.aside}</div>
     </div>
-    <div class="tablewrap">
-      <table class="matrix">
-        <colgroup><col class="c-prod" /><col class="c-kor" /><col class="c-norm" /><col class="c-use" /></colgroup>
-        <thead>
-          <tr>{t.products.cols.map((c: string) => <th>{c}</th>)}</tr>
-        </thead>
-        <tbody>
-          {t.products.rows.map((r: any) => (
-            <tr>
-              <td class="prod">{r.name}{r.note && <small>{r.note}</small>}</td>
-              <td class="kor" data-label={t.products.cols[1]}>{r.kor}</td>
-              <td class="norm" data-label={t.products.cols[2]}>{r.norm}</td>
-              <td data-label={t.products.cols[3]}>{r.use}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div class="groups">
+      {t.products.groups.map((g: any) => (
+        <div class="group">
+          <h3>{g.name}</h3>
+          <div class="g-body">
+            <p>{g.body}</p>
+            <div class="g-items">{g.items.join(' · ')}</div>
+          </div>
+        </div>
+      ))}
     </div>
     <p class="more"><a href={pageHref('produkte')}>{t.products.more} →</a></p>
   </div>
@@ -166,7 +158,7 @@ const pageHref = (s: string) => (s ? `${base}/${s}` : (base === '' ? '/' : `${ba
   <div class="mapwrap">
     <iframe
       title={t.map.heading}
-      src="https://www.openstreetmap.org/export/embed.html?bbox=7.30%2C50.36%2C7.42%2C50.42&layer=mapnik&marker=50.3906%2C7.3606"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=7.3148%2C50.3616%2C7.3748%2C50.3916&layer=mapnik&marker=50.3766%2C7.3448"
       loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     <span class="map-credit">© OpenStreetMap</span>
   </div>

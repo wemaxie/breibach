@@ -7,14 +7,12 @@ import Kontakt from '../components/pages/Kontakt.astro';
 import Legal from '../components/pages/Legal.astro';
 import * as de from '../i18n/de';
 import * as en from '../i18n/en';
-import * as fr from '../i18n/fr';
 
-const mods: Record<string, any> = { de, en, fr };
-const contentPages = ['unternehmen', 'produkte', 'leistungen', 'kontakt'];
+const mods: Record<string, any> = { de, en };
 const legalPages = ['impressum', 'datenschutz', 'cookies'];
 
 export function getStaticPaths() {
-  const codes = ['de', 'en', 'fr'];
+  const codes = ['de', 'en'];
   const pages = ['unternehmen', 'produkte', 'leistungen', 'kontakt', 'impressum', 'datenschutz', 'cookies'];
   const paths = [];
   for (const code of codes) {

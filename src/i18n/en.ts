@@ -9,9 +9,9 @@ export const lang = 'en';
 const LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.';
 
 export const meta = {
-  title: 'Baustoffe Breitbach e.K. · Aggregates, stone powder and trass from the Vulkaneifel',
+  title: 'Baustoff-Großhandel Breitbach e.K. · Raw materials for the concrete and cement industry',
   description:
-    'Baustoffe Breitbach e.K., Kruft. Wholesaler of concrete aggregate to DIN EN 12620, chippings, crushed stone, trass and stone powder from basalt, diabase and greywacke. Delivery across Germany, Benelux and France.',
+    'Baustoff-Großhandel Breitbach e.K., Kruft. Raw materials for the concrete and cement industry, technical applications for the precast concrete industry and international raw-material sourcing. Delivery across Germany, Benelux and France.',
 };
 
 export const content = {
@@ -21,11 +21,14 @@ export const content = {
     { slug: 'leistungen', label: 'Services' },
     { slug: 'kontakt', label: 'Contact' },
   ],
-  heroMeta: ['Kruft, Vulkaneifel', 'DE · Benelux · FR'],
+  heroMeta: ['Kruft, Rhineland-Palatinate', 'DE · Benelux · FR'],
   hero: {
-    title: 'Concrete aggregate, chippings and stone powder from the Vulkaneifel.',
-    sub: 'Baustoffe Breitbach e.K. supplies quality-monitored aggregates to DIN EN 12620, plus trass, crushed stone and stone powder from basalt, diabase and greywacke. Wholesale to concrete, asphalt and construction.',
-    imageLabel: ['Image area · photo to follow', 'Quarry, raw gravel and basalt chippings from the Vulkaneifel'],
+    // Wording set by the client on 2026-07-23. Both lines sit in the headline size.
+    lines: [
+      'For more than 40 years',
+      'Innovative raw-material solutions and technical applications for the concrete and cement industry',
+    ],
+    imageLabel: ['Image area · photo to follow', 'Cement loading, raw-material delivery, operations'],
   },
   slogan: {
     pre: 'Building in harmony with ',
@@ -34,24 +37,25 @@ export const content = {
     body: 'Regional raw materials, short transport distances and the reprocessing of mineral construction materials. The material stays natural stone, from the quarry to the building site.',
   },
   products: {
-    heading: 'Product range: gradings from 0/2 to 32/45 mm.',
-    aside: 'Concrete aggregate, chippings, crushed stone, sand, trass and stone powder. Loose by tipper and silo truck or in big bags. Rock type and grading as required.',
+    heading: 'Raw materials, technical applications and international sourcing.',
+    aside: 'Three areas, one point of contact. Delivery loose by silo truck, in big bags or as bagged goods, domestic and for export.',
     more: 'All products',
-    cols: ['Product', 'Grading', 'Standard', 'Application'],
-    rows: [
-      { name: 'Concrete gravel', note: 'rounded', kor: '0/2 · 2/8 · 8/16 · 16/32 mm', norm: 'DIN EN 12620', use: 'Ready-mixed and in-situ concrete, screed' },
-      { name: 'Concrete sand', note: '', kor: '0/2 mm', norm: 'DIN EN 12620', use: 'Concrete, mortar, jointing sand' },
-      { name: 'Chippings', note: 'basalt / diabase', kor: '2/5 · 5/8 · 8/11 · 11/16 mm', norm: 'DIN EN 13043', use: 'Asphalt, concrete, drainage' },
-      { name: 'Premium chippings', note: '', kor: '2/5 · 5/8 mm', norm: 'DIN EN 13043', use: 'Asphalt surface and binder courses' },
-      { name: 'Crushed stone', note: '', kor: '0/32 · 0/45 · 32/45 mm', norm: 'DIN EN 13242', use: 'Base and frost-protection courses' },
-      { name: 'Crushed sand', note: '', kor: '0/2 · 0/5 mm', norm: 'DIN EN 13242', use: 'Unbound layers, paving bed' },
-      { name: 'Stone powder', note: 'basalt, diabase, greywacke, microdiorite, limestone', kor: '0/0,09 mm', norm: 'DIN EN 12620', use: 'Filler for concrete and asphalt, agriculture, industry' },
-      { name: 'Trass', note: 'volcanic tuff', kor: 'ground', norm: 'DIN 51043', use: 'Trass cement, trass lime, natural-stone laying' },
-      { name: 'Frost-protection gravel', note: '', kor: '0/32 · 0/45 mm', norm: 'DIN EN 13242', use: 'Frost-protection courses in road construction' },
-      { name: 'Recycled aggregate', note: 'quality-monitored', kor: '0/45 mm', norm: 'DIN EN 13242', use: 'Earthworks and path construction, backfill' },
-      { name: 'White cement', note: '', kor: 'CEM I 42,5 · 52,5', norm: 'DIN EN 197-1', use: 'Fair-faced concrete, terrazzo, precast' },
-      { name: 'Quicklime', note: '', kor: '0/3 mm', norm: 'DIN EN 459', use: 'Soil improvement, mortar' },
-      { name: 'Decorative gravel', note: 'ornamental', kor: '8/16 · 16/32 mm', norm: 'not standardised', use: 'Garden and landscaping' },
+    groups: [
+      {
+        name: 'Raw materials for the concrete and cement industry',
+        body: 'Mineral base materials and additives for cement works, ready-mixed concrete plants and precast plants. Stone powders act as fillers, cement and clinker as binders, pumice and lava as lightweight aggregate.',
+        items: ['Stone powders', 'White cement', 'Grey cement', 'Clinker', 'Fly ash', 'Pumice', 'Lava', 'Gypsum'],
+      },
+      {
+        name: 'Technical applications for the precast concrete industry',
+        body: 'Formwork and mould technology for precast and concrete-block production. Magnet systems, shuttering and moulds for the steel table and the carousel plant.',
+        items: ['Magnet boxes', 'Shuttering profiles', 'Magnetic rails', 'Concrete spacers', 'Tilting tables', 'Plastic boards for concrete-block production', 'Moulds for block production'],
+      },
+      {
+        name: 'International raw-material sourcing',
+        body: 'Procurement and trading of metals and ores through international suppliers and trading partners. Specification, quantity and route agreed per enquiry.',
+        items: ['Iron and iron ore', 'Nickel', 'Aluminium', 'Copper', 'Scrap metal'],
+      },
     ],
   },
   band: { label: ['Image area · photo to follow', 'Basalt chippings 8/11 at the stockpile'], caption: 'Basalt chippings 8/11, Osteifel' },
@@ -94,15 +98,15 @@ export const content = {
     aside: 'Run by Daniel Breitbach. Based in Kruft, at the edge of the eastern Eifel between Laacher See and the Rhine.',
     more: 'More about us',
     paras: [
-      'What began as a regional trade in sand and gravel has grown into a wholesaler of mineral construction materials. The focus is on aggregates for concrete and asphalt and on stone powder from the volcanic rock of the Eifel.',
-      'We advise on grading, rock type and standard, schedule delivery and supply on time to concrete plants, asphalt mixing plants and construction firms in Germany, the Benelux countries and France.',
+      'What began as a regional trade in sand and gravel has grown into a wholesaler of mineral raw materials. The focus today is on base materials and additives for the concrete and cement industry and on technical applications for the precast concrete industry.',
+      'We advise on mix design and application, schedule delivery and supply on time to cement works, concrete plants and processors in Germany, the Benelux countries and France. Alongside this comes the international procurement of metals and ores.',
       'Short distances, dependable contacts and consistent quality. That is the basis our customers have planned on for decades.',
     ],
     facts: [
-      { v: '40+', l: 'Years in the aggregates trade' },
+      { v: '40+', l: 'Years in the raw-materials trade' },
+      { v: '3', l: 'Product areas' },
       { v: '3', l: 'Countries in the delivery area' },
-      { v: '5', l: 'Rock types for stone powder' },
-      { v: 'DIN EN', l: 'Quality-monitored gradings' },
+      { v: 'Export', l: 'International procurement' },
     ],
   },
   partners: {
@@ -111,7 +115,7 @@ export const content = {
     slots: ['Partner logo', 'Partner logo', 'Partner logo', 'Partner logo', 'Partner logo', 'Partner logo'],
   },
   map: {
-    heading: 'Location: Kruft, Vulkaneifel.',
+    heading: 'Location: Kruft, Rhineland-Palatinate.',
     aside: 'Reuschenlay 32, 56642 Kruft. Delivery and collection by arrangement.',
   },
   contact: {
@@ -128,7 +132,7 @@ export const content = {
     address: ['Baustoffe Breitbach e.K.', 'Reuschenlay 32', '56642 Kruft', 'Germany'],
   },
   footer: {
-    blurb: 'Wholesaler of aggregates, trass and stone powder from the Vulkaneifel.',
+    blurb: 'Raw materials for the concrete and cement industry, technical applications for the precast concrete industry and international raw-material sourcing.',
     cols: [
       { head: 'Address', wide: true, items: [
         { label: 'Baustoffe Breitbach e.K.' }, { label: 'Reuschenlay 32' }, { label: '56642 Kruft' }, { label: 'Germany' },
@@ -167,19 +171,31 @@ export const content = {
         body: 'Placeholder · Short profile of the owner Daniel Breitbach (background, role, any additional management). ' + LOREM,
       },
     },
+    // Restructured 2026-07-28 to the three groups the client specified on 2026-07-23.
+    // catImages in components/pages/Produkte.astro is matched to this list BY INDEX.
     produkte: {
       slug: 'produkte',
-      title: 'Products and stone powder',
-      lead: 'Placeholder · Intro to the range: exclusively products certified to DIN 12620 for concrete production, plus a full stone-powder line. ' + LOREM,
+      title: 'Products',
+      lead: 'The range is organised into three areas: mineral raw materials for the concrete and cement industry, technical applications for the precast concrete industry, and international raw-material sourcing.',
       categories: [
-        { name: 'Stone powder', imageLabel: ['Image area · photo to follow', 'Stone powder'], body: 'Placeholder · Description of the stone-powder line and note about dozens of products with different shades and properties, personal consultation. ' + LOREM, items: ['Basalt powder', 'Diabase powder', 'Greywacke powder', 'Microdiorite powder', 'Limestone powder'] },
-        { name: 'Special stone powder for white cement', imageLabel: ['Image area · photo to follow', 'Special stone powder'], body: 'Placeholder · Special stone powder for use with white cements, offering significant savings potential. ' + LOREM, items: [] },
-        { name: 'Further products via partners', imageLabel: ['Image area · photo to follow', 'Trass, basalt, gravel, crushed stone'], body: 'Placeholder · Additional products offered together with partners. ' + LOREM, items: ['Trass', 'Basalt', 'Gravel', 'Crushed stone', 'White cement'] },
-        { name: 'Special products', imageLabel: ['Image area · photo to follow', 'Special products'], body: 'Placeholder · Special products beyond the standard range for the concrete industry, industrial production and agriculture. ' + LOREM, items: ['Calcium oxide (quicklime)', 'various ashes', 'Bauxite', 'Decorative gravel (black and white)'] },
-        { name: 'Industrial and special sands', imageLabel: ['Image area · photo to follow', 'Special sands'], body: 'Placeholder · Special sands for concrete production and industrial processes, for example quartzite sands. ' + LOREM, items: ['Quartzite sand', 'further special sands'] },
-        { name: 'White cement', imageLabel: ['Image area · photo to follow', 'White cement'], body: 'Placeholder · High-quality white cement in classes 42,5 and 52,5, delivered in bags or by silo truck, via an international partner. ' + LOREM, items: ['CEM I 42,5', 'CEM I 52,5'] },
-        { name: 'Limestone powder', imageLabel: ['Image area · photo to follow', 'Limestone powder'], body: 'Placeholder · Limestone powder as a key component in concrete production and agriculture, also as a de-dusting filler. ' + LOREM, items: [] },
-        { name: 'Crushed stone and gravel', imageLabel: ['Image area · photo to follow', 'Crushed stone and gravel'], body: 'Placeholder · Crushed stone and gravel from various rocks, gradings and quantities, from decorative stone to bulk volumes, domestic and imported. ' + LOREM, items: ['Crushed stone', 'Gravel', 'Chippings', 'Decorative stone'] },
+        {
+          name: 'Raw materials for the concrete and cement industry',
+          imageLabel: ['Image area · photo to follow', 'Stone powder, cement, raw materials'],
+          body: 'Base materials and additives for cement works, ready-mixed concrete plants and precast plants. Stone powders are used as fillers and influence particle packing, workability and the colour of the concrete. White and grey cement and clinker act as binders in the mix, fly ash as a pozzolanic additive. Pumice and lava serve as lightweight aggregate, gypsum as a set regulator in cement. Delivered loose by silo truck, in big bags or as bagged goods.',
+          items: ['Stone powders', 'White cement', 'Grey cement', 'Clinker', 'Fly ash', 'Pumice', 'Lava', 'Gypsum'],
+        },
+        {
+          name: 'Technical applications for the precast concrete industry',
+          imageLabel: ['Image area · photo to follow', 'Magnet systems and shuttering on the steel table'],
+          body: 'Equipment and consumables for the production of precast elements and concrete blocks. Magnet boxes, magnetic rails and shuttering profiles fix and delimit the formwork on the steel table and can be repositioned without drilling. Tilting tables are used to lift finished elements upright, concrete spacers secure the cover to the reinforcement. For concrete-block production there are plastic boards as a base and moulds for block production.',
+          items: ['Magnet boxes', 'Shuttering profiles', 'Magnetic rails', 'Concrete spacers', 'Tilting tables', 'Plastic boards for concrete-block production', 'Moulds for block production'],
+        },
+        {
+          name: 'International raw-material sourcing',
+          imageLabel: ['Image area · photo to follow', 'Loading at the port'],
+          body: 'Procurement of metals and ores through international suppliers and trading partners. Iron and iron ore, nickel, aluminium and copper are sourced and supplied, as well as scrap metal for recycling. Specification, quantity and route are agreed per enquiry.',
+          items: ['Iron and iron ore', 'Nickel', 'Aluminium', 'Copper', 'Scrap metal'],
+        },
       ],
     },
     leistungen: {

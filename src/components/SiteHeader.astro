@@ -15,21 +15,20 @@ const pageHref = (s: string) => (s ? `${base}/${s}` : home);
 const locales = [
   { code: 'de', label: 'DE', href: slug ? `/${slug}` : '/' },
   { code: 'en', label: 'EN', href: slug ? `/en/${slug}` : '/en/' },
-  { code: 'fr', label: 'FR', href: slug ? `/fr/${slug}` : '/fr/' },
 ];
 ---
 
 <header class="site">
   <div class="wrap head-in">
-    <a class="brand" href={home} aria-label="Baustoffe Breitbach">
+    <a class="brand" href={home} aria-label="Baustoff-Großhandel Breitbach e.K.">
       <Logo />
-      <span class="wordmark">Breitbach.</span>
+      <span class="wordmark">Baustoff-Großhandel Breitbach e.K.</span>
     </a>
     <div class="head-right">
       <nav class="main" id="nav">
         {t.nav.map((n: any) => <a href={pageHref(n.slug)}>{n.label}</a>)}
       </nav>
-      <div class="lang" aria-label="Sprache / Language / Langue">
+      <div class="lang" aria-label="Sprache / Language">
         {locales.map((l) => (
           <a href={l.href} lang={l.code} class={l.code === locale ? 'on' : ''} aria-current={l.code === locale ? 'true' : undefined}>{l.label}</a>
         ))}
