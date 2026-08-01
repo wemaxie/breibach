@@ -28,6 +28,7 @@ export const content = {
       'For more than 40 years',
       'Innovative raw-material solutions and technical applications for the concrete and cement industry',
     ],
+    alt: 'Cement loading at the port: freighter under load, big bags on flatbed trailers',
     imageLabel: ['Image area · photo to follow', 'Cement loading, raw-material delivery, operations'],
   },
   slogan: {

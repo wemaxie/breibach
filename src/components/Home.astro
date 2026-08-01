@@ -17,7 +17,7 @@ const pageHref = (s: string) => (s ? `${base}/${s}` : (base === '' ? '/' : `${ba
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
   <div class="hero-media">
-    <video class="hero-video" src="/media/hero.mp4" autoplay muted loop playsinline preload="auto"></video>
+    <img src="/media/zementverladung.webp" alt={t.hero.alt} width="1280" height="720" fetchpriority="high" decoding="async" />
   </div>
   <div class="hero-meta">
     {t.heroMeta.map((m: string) => <span>{m}</span>)}
