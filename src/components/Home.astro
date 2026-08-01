@@ -31,7 +31,16 @@ const pageHref = (s: string) => (s ? `${base}/${s}` : (base === '' ? '/' : `${ba
 <div class="wrap">
   <section class="nature">
     <div class="nature-media" aria-hidden="true">
-      <video class="tree-mask" src="/media/tree-canopy.mp4" width="1280" height="720" autoplay muted loop playsinline preload="auto"></video>
+      <!-- Decorative, below the fold. Deliberately NO autoplay attribute: with it, Chrome's
+           autoplay policy overrides preload="none" and pulls the whole file during first
+           paint (measured: 727 KB at 49 ms). The observer below starts playback instead,
+           so nothing is fetched until the block is actually approached. AV1 first, VP9 for
+           Safari, poster for anything that can decode neither. -->
+      <video class="tree-mask" id="canopy" width="1096" height="1120" poster="/media/tree-canopy-poster.webp"
+             muted loop playsinline preload="none">
+        <source src="/media/tree-canopy.webm" type="video/webm; codecs=av01.0.05M.08" />
+        <source src="/media/tree-canopy.vp9.webm" type="video/webm; codecs=vp9" />
+      </video>
     </div>
     <div class="nature-text">
       <h2>{t.slogan.pre}<em>{t.slogan.green}</em>{t.slogan.post}</h2>
@@ -187,3 +196,23 @@ const pageHref = (s: string) => (s ? `${base}/${s}` : (base === '' ? '/' : `${ba
 </section>
 
 <SiteFooter t={t} locale={locale} />
+
+<script is:inline>
+  // Load and play the canopy loop only once it is approached. Keeps 727 KB off the
+  // first paint, and leaves the poster in place for reduced-motion users.
+  (function () {
+    var v = document.getElementById('canopy');
+    if (!v) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) { v.play().catch(function () {}); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        v.preload = 'auto';
+        v.play().catch(function () {});
+      });
+    }, { rootMargin: '300px 0px' });
+    io.observe(v);
+  })();
+</script>
