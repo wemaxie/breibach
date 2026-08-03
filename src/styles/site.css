@@ -110,7 +110,7 @@ nav.main a:hover::after{transform:scaleX(1)}
 .ph{background:#E5E5E5;display:flex;align-items:center;justify-content:center;text-align:center;padding:28px}
 .ph-label{color:#8A8A8A;font-size:13px;font-weight:500;letter-spacing:.01em;line-height:1.7;max-width:46ch}
 .ph-label::before{content:"";display:block;width:36px;height:1px;background:#B4B4B4;margin:0 auto 16px}
-.band .band-ph{width:100%;height:min(58vh,560px)}
+.band .band-ph{width:100%;height:max(72px,10vh)}
 .hero .hero-media.ph{align-items:flex-start;padding-top:104px} /* keep label clear of the black headline block */
 
 /* ---------- Section frame ---------- */
@@ -165,8 +165,11 @@ section{scroll-margin-top:80px}
 
 /* ---------- Full-bleed photo band ---------- */
 .band{position:relative;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
-.band img{width:100%;height:min(58vh,560px);object-fit:cover;object-position:center 55%}
-.band figcaption{position:absolute;left:0;bottom:0;background:var(--paper);color:var(--ink);font-size:12px;letter-spacing:.01em;font-weight:500;padding:10px 16px;border-top:1px solid var(--ink);border-right:1px solid var(--ink)}
+/* Thin material strip rather than a full photo block: at ~10vh the gravel reads as a
+   sample between sections. display:block kills the inline baseline gap, which is
+   invisible at 560px but 5% of the band at this height. */
+.band img{display:block;width:100%;height:max(72px,10vh);object-fit:cover;object-position:center}
+.band figcaption{position:absolute;left:0;bottom:0;background:var(--paper);color:var(--ink);font-size:12px;letter-spacing:.01em;font-weight:500;padding:8px 14px;border-top:1px solid var(--ink);border-right:1px solid var(--ink)}
 
 /* ---------- Applications ---------- */
 .apps{display:grid;grid-template-columns:repeat(12,1fr);border:1px solid var(--ink);border-top:0}
