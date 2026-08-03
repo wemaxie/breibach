@@ -27,6 +27,7 @@ export const content = {
       'Seit mehr als 40 Jahren',
       'Innovative Rohstofflösungen und technische Anwendungen für die Beton- und Zementindustrie',
     ],
+    slideLabel: 'Foto',
     // One entry per hero slide, matched BY INDEX against heroSlides in Home.astro.
     alts: [
       'Zementverladung im Hafen: Frachtschiff unter Ladung, Big Bags auf Tiefladern',

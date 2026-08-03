@@ -28,6 +28,7 @@ export const content = {
       'For more than 40 years',
       'Innovative raw-material solutions and technical applications for the concrete and cement industry',
     ],
+    slideLabel: 'Photo',
     // One entry per hero slide, matched BY INDEX against heroSlides in Home.astro.
     alts: [
       'Cement loading at the port: freighter under load, big bags on flatbed trailers',

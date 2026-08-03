@@ -92,6 +92,17 @@ nav.main a:hover::after{transform:scaleX(1)}
 .hero-block h1{font-weight:700;letter-spacing:-.02em;line-height:1.14;font-size:clamp(1.05rem,2.02vw,1.8rem);text-wrap:balance}
 .hero-block h1 span{display:block}
 .hero-meta{position:absolute;top:0;right:0;background:var(--ink);color:#EDEDED;padding:12px 22px;display:flex;gap:22px;font-size:12px;font-weight:500;letter-spacing:.01em}
+/* Slide indicator: same black chip as .hero-meta, mirrored to the bottom-right corner, so
+   it reads as part of the frame rather than as carousel furniture. One hairline per slide;
+   the active one fills over the 5s dwell. */
+.hero-nav{position:absolute;right:0;bottom:0;z-index:2;background:var(--ink);padding:14px 22px;display:flex;gap:10px}
+.hero-dot{appearance:none;-webkit-appearance:none;background:none;border:0;border-radius:0;padding:7px 0;width:38px;cursor:pointer;display:block}
+.hero-dot .bar{display:block;height:2px;background:rgba(255,255,255,.3);overflow:hidden}
+.hero-dot .bar i{display:block;height:100%;background:var(--paper);transform:scaleX(0);transform-origin:left center}
+.hero-dot.on .bar i{animation:hero-fill 5s linear forwards}
+.hero-dot:hover .bar{background:rgba(255,255,255,.5)}
+.hero-dot:focus-visible{outline:1px solid var(--paper);outline-offset:3px}
+@keyframes hero-fill{to{transform:scaleX(1)}}
 .hero-meta span{color:#EDEDED}
 .hero-meta span + span{color:#9A9A9A}
 
@@ -243,6 +254,9 @@ footer.site{background:var(--ink);color:#CFCFCF;border-top:1px solid var(--ink);
   .burger{display:flex}
   .head-right{gap:14px}
   .hero-meta{display:none}
+  /* The black block is full width down here, so the indicator takes the corner the meta
+     chip just vacated instead of sitting on top of the headline. */
+  .hero-nav{bottom:auto;top:0}
   /* A landscape photograph inside an 82vh box crops to a sliver on a phone.
      Bound the hero by ratio instead so the shot stays readable. */
   .hero-media{height:auto;aspect-ratio:1/1;max-height:64vh}
@@ -254,6 +268,8 @@ footer.site{background:var(--ink);color:#CFCFCF;border-top:1px solid var(--ink);
   /* .reveal starts at opacity:0 and relies on the animation's forwards fill — killing the
      animation without this leaves the hero headline blank. */
   .reveal{opacity:1;transform:none}
+  /* The rotation is held still here, so show the active bar filled rather than empty. */
+  .hero-dot.on .bar i{transform:scaleX(1)}
 }
 
 /* subtle load reveal (hero only) */
