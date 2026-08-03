@@ -52,8 +52,10 @@ ul{list-style:none;padding:0}
 .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gut);padding-right:var(--gut)}
 .rule{height:1px;background:var(--line);border:0}
 
-/* label / overline used ONLY for nav, table heads, footer labels — never as a section eyebrow */
-.label{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+/* Small muted label above a block (address, contact panel). Title Case, never a section
+   eyebrow. Uppercase was dropped everywhere on 2026-08-03 except the DE/EN language codes
+   and the DIN designations, where the caps carry meaning. */
+.label{font-size:12px;font-weight:600;letter-spacing:.01em;color:var(--grey)}
 
 /* ---------- Header ---------- */
 header.site{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--ink)}
@@ -86,13 +88,13 @@ nav.main a:hover::after{transform:scaleX(1)}
 .hero-block{position:absolute;left:0;bottom:0;width:min(60%,1180px);background:var(--ink);color:var(--paper);padding:clamp(15px,1.9vw,24px) clamp(24px,3vw,44px) clamp(15px,1.9vw,24px) var(--gut)}
 .hero-block h1{font-weight:700;letter-spacing:-.02em;line-height:1.14;font-size:clamp(1.05rem,2.02vw,1.8rem);text-wrap:balance}
 .hero-block h1 span{display:block}
-.hero-meta{position:absolute;top:0;right:0;background:var(--ink);color:#EDEDED;padding:12px 22px;display:flex;gap:22px;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.hero-meta{position:absolute;top:0;right:0;background:var(--ink);color:#EDEDED;padding:12px 22px;display:flex;gap:22px;font-size:12px;font-weight:500;letter-spacing:.01em}
 .hero-meta span{color:#EDEDED}
 .hero-meta span + span{color:#9A9A9A}
 
 /* Image placeholders: grey field + label describing the intended photograph */
 .ph{background:#E5E5E5;display:flex;align-items:center;justify-content:center;text-align:center;padding:28px}
-.ph-label{color:#8A8A8A;font-size:12.5px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;line-height:1.85;max-width:46ch}
+.ph-label{color:#8A8A8A;font-size:13px;font-weight:500;letter-spacing:.01em;line-height:1.7;max-width:46ch}
 .ph-label::before{content:"";display:block;width:36px;height:1px;background:#B4B4B4;margin:0 auto 16px}
 .band .band-ph{width:100%;height:min(58vh,560px)}
 .hero .hero-media.ph{align-items:flex-start;padding-top:104px} /* keep label clear of the black headline block */
@@ -191,7 +193,7 @@ section{scroll-margin-top:80px}
 .contact h3{font-weight:700;font-size:clamp(1.4rem,2.4vw,2rem);letter-spacing:-.02em;color:var(--ink);line-height:1.05}
 .contact .lead{margin-top:16px;max-width:46ch;color:var(--ink-2)}
 .cdl{margin-top:28px;display:grid;grid-template-columns:auto 1fr;gap:8px 26px;font-size:14px}
-.cdl dt{color:var(--grey);font-size:11px;letter-spacing:.11em;text-transform:uppercase;padding-top:3px}
+.cdl dt{color:var(--grey);font-size:12.5px;font-weight:600;letter-spacing:.01em;padding-top:3px}
 .cdl dd{margin:0;color:var(--ink)}
 .btn{display:inline-flex;align-items:center;gap:12px;background:var(--green);color:#fff;font-weight:500;font-size:14px;letter-spacing:.02em;padding:16px 26px;border:1px solid var(--green);align-self:flex-start;transition:background .2s,color .2s}
 .btn:hover{background:#184a2e}
@@ -270,7 +272,7 @@ footer.site{background:var(--ink);color:#CFCFCF;border-top:1px solid var(--ink);
 .logos{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--ink);border-top:0}
 .logo-ph{aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;border-top:1px solid var(--line);border-right:1px solid var(--line);background:#F3F3F3}
 .logo-ph:nth-child(6n){border-right:0}
-.logo-ph span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9A9A9A}
+.logo-ph span{font-size:12px;font-weight:500;letter-spacing:.01em;color:#9A9A9A}
 @media(max-width:900px){.logos{grid-template-columns:repeat(3,1fr)}.logo-ph:nth-child(6n){border-right:1px solid var(--line)}.logo-ph:nth-child(3n){border-right:0}}
 @media(max-width:520px){.logos{grid-template-columns:repeat(2,1fr)}.logo-ph:nth-child(3n){border-right:1px solid var(--line)}.logo-ph:nth-child(2n){border-right:0}}
 
@@ -311,7 +313,6 @@ footer.site{background:var(--ink);color:#CFCFCF;border-top:1px solid var(--ink);
 .owner .o-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block}
 .owner .o-body{grid-column:6 / span 7;padding:36px 40px}
 .owner .o-name{font-weight:700;font-size:22px;letter-spacing:-.01em;color:var(--ink)}
-.owner .o-role{color:var(--grey);font-size:12px;letter-spacing:.11em;text-transform:uppercase;margin-top:4px}
 .owner .o-body p{margin-top:18px;color:var(--ink-2);font-size:15px;max-width:52ch}
 @media(max-width:720px){.owner .o-img{grid-column:1 / -1;border-right:0;border-bottom:1px solid var(--ink);min-height:240px}.owner .o-body{grid-column:1 / -1}}
 
@@ -320,7 +321,7 @@ footer.site{background:var(--ink);color:#CFCFCF;border-top:1px solid var(--ink);
 .kf-form{grid-column:1 / span 7;padding:36px 40px;border-right:1px solid var(--ink)}
 .kf-side{grid-column:8 / span 5;padding:36px 40px}
 .form-row{display:flex;flex-direction:column;margin-bottom:18px}
-.form-row label{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--grey);margin-bottom:7px}
+.form-row label{font-size:12.5px;font-weight:600;letter-spacing:.01em;color:var(--grey);margin-bottom:7px}
 .form-row input,.form-row textarea{font:inherit;font-size:14px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:0;padding:11px 12px}
 .form-row input:focus,.form-row textarea:focus{outline:none;border-color:var(--ink)}
 .form-row textarea{min-height:120px;resize:vertical}

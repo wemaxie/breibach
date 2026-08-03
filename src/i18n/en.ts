@@ -113,7 +113,7 @@ export const content = {
   partners: {
     heading: 'Partners and suppliers.',
     aside: 'Placeholder · insert the partner company logos (cement works, special sands, international suppliers).',
-    slots: ['Partner logo', 'Partner logo', 'Partner logo', 'Partner logo', 'Partner logo', 'Partner logo'],
+    slots: ['Partner Logo', 'Partner Logo', 'Partner Logo', 'Partner Logo', 'Partner Logo', 'Partner Logo'],
   },
   map: {
     heading: 'Location: Kruft, Rhineland-Palatinate.',
@@ -126,7 +126,7 @@ export const content = {
     email: 'info@baustoffe-breitbach.com',
     rows: [
       { k: 'Phone', v: '02652 6326' },
-      { k: 'E-mail', v: 'info@baustoffe-breitbach.com' },
+      { k: 'E-Mail', v: 'info@baustoffe-breitbach.com' },
       { k: 'Hours', v: 'Mon to Fri, 7:00 to 17:00' },
     ],
     standortLabel: 'Location',
@@ -220,11 +220,11 @@ export const content = {
         fields: [
           { name: 'name', label: 'Name', type: 'text', required: true },
           { name: 'firma', label: 'Company', type: 'text', required: false },
-          { name: 'email', label: 'E-mail', type: 'email', required: true },
+          { name: 'email', label: 'E-Mail', type: 'email', required: true },
           { name: 'telefon', label: 'Phone', type: 'tel', required: false },
-          { name: 'material', label: 'Material and grading', type: 'text', required: false },
+          { name: 'material', label: 'Material and Grading', type: 'text', required: false },
           { name: 'menge', label: 'Quantity', type: 'text', required: false },
-          { name: 'lieferort', label: 'Delivery location', type: 'text', required: false },
+          { name: 'lieferort', label: 'Delivery Location', type: 'text', required: false },
           { name: 'nachricht', label: 'Message', type: 'textarea', required: false },
         ],
         submit: 'Send enquiry',
