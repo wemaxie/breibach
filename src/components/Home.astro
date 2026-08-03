@@ -17,7 +17,13 @@ const pageHref = (s: string) => (s ? `${base}/${s}` : (base === '' ? '/' : `${ba
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
   <div class="hero-media">
-    <img src="/media/zementverladung.webp" alt={t.hero.alt} width="1280" height="720" fetchpriority="high" decoding="async" />
+    <!-- LCP element, full-bleed, so it is served responsively: a phone pulls 47 KB,
+         a 2x desktop 409 KB. Source is the 2688px upscale of the client's port photo. -->
+    <img
+      src="/media/zementverladung-1280.webp"
+      srcset="/media/zementverladung-768.webp 768w, /media/zementverladung-1280.webp 1280w, /media/zementverladung-1920.webp 1920w, /media/zementverladung-2688.webp 2688w"
+      sizes="100vw"
+      alt={t.hero.alt} width="2688" height="1520" fetchpriority="high" decoding="async" />
   </div>
   <div class="hero-meta">
     {t.heroMeta.map((m: string) => <span>{m}</span>)}
