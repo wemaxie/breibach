@@ -10,6 +10,12 @@ interface Props {
 const { t, locale } = Astro.props;
 const base = locale === 'de' ? '' : `/${locale}`;
 const pageHref = (s: string) => (s ? `${base}/${s}` : (base === '' ? '/' : `${base}/`));
+
+// Hero slides, locale-independent: the alt text is matched BY INDEX against t.hero.alts,
+// so both locales must keep that array the same length as this one.
+const heroSlides = ['zementverladung', 'betonrohre'];
+const HERO_WIDTHS = [768, 1280, 1920, 2688];
+const heroSrcset = (name: string) => HERO_WIDTHS.map((w) => `/media/${name}-${w}.webp ${w}w`).join(', ');
 ---
 
 <SiteHeader t={t} locale={locale} slug="" />
@@ -17,13 +23,20 @@ const pageHref = (s: string) => (s ? `${base}/${s}` : (base === '' ? '/' : `${ba
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
   <div class="hero-media">
-    <!-- LCP element, full-bleed, so it is served responsively: a phone pulls 47 KB,
-         a 2x desktop 409 KB. Source is the 2688px upscale of the client's port photo. -->
-    <img
-      src="/media/zementverladung-1280.webp"
-      srcset="/media/zementverladung-768.webp 768w, /media/zementverladung-1280.webp 1280w, /media/zementverladung-1920.webp 1920w, /media/zementverladung-2688.webp 2688w"
-      sizes="100vw"
-      alt={t.hero.alt} width="2688" height="1520" fetchpriority="high" decoding="async" />
+    <!-- Rotating stills (client request, 2026-07-23). Full-bleed and the LCP element, so
+         each is served responsively; only the first is high priority, the rest load after.
+         The first carries .on in the HTML so it shows without JS. -->
+    {heroSlides.map((name, i) => (
+      <img
+        class={i === 0 ? 'hero-slide on' : 'hero-slide'}
+        src={`/media/${name}-1280.webp`}
+        srcset={heroSrcset(name)}
+        sizes="100vw"
+        alt={t.hero.alts[i]}
+        width="2688" height="1520"
+        fetchpriority={i === 0 ? 'high' : 'low'}
+        decoding="async" />
+    ))}
   </div>
   <div class="hero-meta">
     {t.heroMeta.map((m: string) => <span>{m}</span>)}
@@ -220,5 +233,23 @@ const pageHref = (s: string) => (s ? `${base}/${s}` : (base === '' ? '/' : `${ba
       });
     }, { rootMargin: '300px 0px' });
     io.observe(v);
+  })();
+
+  // Hero stills cross-fade every 5s. Starts only on window.load, so the first swap can
+  // never fade into an image that has not arrived yet. Held still for reduced motion.
+  (function () {
+    var slides = document.querySelectorAll('.hero-slide');
+    if (slides.length < 2) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    function start() {
+      var i = 0;
+      setInterval(function () {
+        slides[i].classList.remove('on');
+        i = (i + 1) % slides.length;
+        slides[i].classList.add('on');
+      }, 5000);
+    }
+    if (document.readyState === 'complete') start();
+    else window.addEventListener('load', start);
   })();
 </script>
