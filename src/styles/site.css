@@ -329,14 +329,30 @@ footer.site{background:var(--ink);color:#CFCFCF;border-top:1px solid var(--ink);
 .cat .items li{font-style:italic;color:var(--ink);font-size:13.5px;border-left:1px solid var(--line);padding-left:12px}
 @media(max-width:720px){.cat .cat-img{grid-column:1 / -1;border-right:0;border-bottom:1px solid var(--line);min-height:150px}.cat .cat-body{grid-column:1 / -1}}
 
-/* Sub-page: owner */
-.owner{display:grid;grid-template-columns:repeat(12,1fr);border:1px solid var(--ink);border-top:0}
-.owner .o-img{grid-column:1 / span 5;border-right:1px solid var(--ink);min-height:340px;position:relative;overflow:hidden}
-.owner .o-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block}
-.owner .o-body{grid-column:6 / span 7;padding:36px 40px}
-.owner .o-name{font-weight:700;font-size:22px;letter-spacing:-.01em;color:var(--ink)}
-.owner .o-body p{margin-top:18px;color:var(--ink-2);font-size:15px;max-width:52ch}
-@media(max-width:720px){.owner .o-img{grid-column:1 / -1;border-right:0;border-bottom:1px solid var(--ink);min-height:240px}.owner .o-body{grid-column:1 / -1}}
+/* Company page: the owner sits in a left column beside the text instead of as a slab at
+   the foot of the page. Portrait on top of the column, the company blocks to the right. */
+.co-grid{display:grid;grid-template-columns:repeat(12,1fr);border:1px solid var(--ink);border-top:0;margin-bottom:clamp(48px,7vw,90px)}
+.co-owner{grid-column:1 / span 4;border-right:1px solid var(--ink)}
+.co-portrait{position:relative;overflow:hidden;aspect-ratio:4 / 5;border-bottom:1px solid var(--line)}
+.co-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block}
+.co-owner-body{padding:26px 28px}
+.co-owner-body .o-name{margin-top:10px;font-weight:700;font-size:20px;letter-spacing:-.01em;color:var(--ink)}
+.co-owner-body p{margin-top:14px;color:var(--ink-2);font-size:14px;line-height:1.65}
+.co-text{grid-column:5 / span 8}
+.co-block{padding:30px 34px;border-bottom:1px solid var(--line)}
+.co-text .co-block:last-child{border-bottom:0}
+.co-block h3{font-weight:700;font-size:clamp(1.05rem,1.5vw,1.35rem);letter-spacing:-.01em;color:var(--ink);margin-bottom:12px}
+.co-block .b{color:var(--ink-2);font-size:15px;white-space:pre-line}
+@media(max-width:820px){
+  .co-owner{grid-column:1 / -1;border-right:0;border-bottom:1px solid var(--ink);display:grid;grid-template-columns:1fr 1fr}
+  .co-portrait{aspect-ratio:1 / 1;border-bottom:0;border-right:1px solid var(--line)}
+  .co-text{grid-column:1 / -1}
+}
+@media(max-width:560px){
+  .co-owner{grid-template-columns:1fr}
+  .co-portrait{aspect-ratio:4 / 3;border-right:0;border-bottom:1px solid var(--line)}
+  .co-owner-body,.co-block{padding:24px 22px}
+}
 
 /* Contact page: form left, information column right, full-bleed map below.
    The form is a two-column grid so it stops running twice as long as the column
