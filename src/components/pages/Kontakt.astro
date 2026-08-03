@@ -16,36 +16,55 @@ const p = t.pages.kontakt;
 
   <div class="kontakt-grid">
     <div class="kf-form">
+      <p class="kf-intro">{p.form.intro}</p>
       <form action={`mailto:${t.contact.email}`} method="post" enctype="text/plain">
         {p.form.fields.map((f: any) => (
-          <div class="form-row">
+          <div class={f.full ? 'form-row full' : 'form-row'}>
             <label for={f.name}>{f.label}{f.required && <span class="req"> *</span>}</label>
             {f.type === 'textarea'
               ? <textarea id={f.name} name={f.name} required={f.required}></textarea>
               : <input id={f.name} name={f.name} type={f.type} required={f.required} />}
           </div>
         ))}
-        <button class="btn" type="submit"><span>{p.form.submit}</span><span class="arw">→</span></button>
-        <p class="kf-note">{p.form.note}</p>
+        <div class="form-foot">
+          <button class="btn" type="submit"><span>{p.form.submit}</span><span class="arw">→</span></button>
+          <p class="kf-note">{p.form.note}</p>
+        </div>
       </form>
     </div>
+
     <div class="kf-side">
-      <div class="label">{t.contact.standortLabel}</div>
-      <address>
-        {t.contact.address.map((l: string, i: number) => (<Fragment>{i > 0 && <br />}{l}</Fragment>))}
-      </address>
-      <dl class="cdl">
-        {t.contact.rows.map((r: any) => (<Fragment><dt>{r.k}</dt><dd>{r.v}</dd></Fragment>))}
-      </dl>
-      <div class="kf-map">
-        <iframe
-          title={p.mapHeading}
-          src="https://www.openstreetmap.org/export/embed.html?bbox=7.3148%2C50.3616%2C7.3748%2C50.3916&layer=mapnik&marker=50.3766%2C7.3448"
-          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <span class="map-credit">© OpenStreetMap</span>
+      <div class="kf-cell">
+        <div class="label">{p.checklistHeading}</div>
+        <ul class="kf-list">
+          {p.checklist.map((c: string) => <li>{c}</li>)}
+        </ul>
+      </div>
+      <div class="kf-cell">
+        <div class="label">{p.deliveryHeading}</div>
+        <p>{p.deliveryBody}</p>
+      </div>
+      <div class="kf-cell">
+        <div class="label">{t.contact.standortLabel}</div>
+        <address>
+          {t.contact.address.map((l: string, i: number) => (<Fragment>{i > 0 && <br />}{l}</Fragment>))}
+        </address>
+        <dl class="cdl">
+          {t.contact.rows.map((r: any) => (<Fragment><dt>{r.k}</dt><dd>{r.v}</dd></Fragment>))}
+        </dl>
       </div>
     </div>
   </div>
 </div>
+
+<section class="kontakt-map" aria-label={p.mapHeading}>
+  <div class="mapwrap">
+    <iframe
+      title={p.mapHeading}
+      src="https://www.openstreetmap.org/export/embed.html?bbox=7.3148%2C50.3616%2C7.3748%2C50.3916&layer=mapnik&marker=50.3766%2C7.3448"
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <span class="map-credit">© OpenStreetMap</span>
+  </div>
+</section>
 
 <SiteFooter t={t} locale={locale} />
